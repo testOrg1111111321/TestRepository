@@ -4,8 +4,7 @@
     <title>Employees</title>
     <meta http-equiv="Content-Type" content="text/html" charset="UTF-8"/>
     <link rel="stylesheet" th:href="@{/webjars/bootstrap/5.0.1/css/bootstrap.min.css}">
-    <script th:src="@{webjars/jquery/3.6.0/jquery.min.js}"></script>
-    <script th:src="@{webjars/bootstrap/3.3.7/js/bootstrap.min.js}"></script>
+    <script th:src="@{webjars/bootstrap/5.0.1/js/bootstrap.min.js}"></script>
 </head>
 <body>
 <div class="container">
@@ -16,23 +15,24 @@
             <td>Nazwisko</td>
             <td>Zadanie</td>
             <td>Czy Pracuje</td>
+            <td></td>
         </tr>
         </thead>
         <tbody th:each="employee : ${employees}">
         <tr>
             <td th:text="${employee.name}"></td>
             <td th:text="${employee.surname}"></td>
-            <td th:text="${employee.surname}"></td>
-            <td th:text="${employee.isWorking}">
-                <span th:if="${employee.isWorking==true}">Tak</span>
-                <span th:if="${employee.isWorking==false}">Nie</span>
-            </td>
             <td>
-                <span th:if="${employee.job==null}">Brak przypisanej pracy  <a th:href="${'/assignQuest?knightId='+knight.id}">Przypisz prace</a> </span>
+                <span th:if="${employee.job==null}">Brak przypisanej pracy </span>
                 <span th:if="${employee.job!=null}" th:text="${employee.job.description}"></span>
             </td>
-            <td><a th:href="${'/knight?id='+knight.id}">Podgląd</a></td>
-            <td><a th:href="${'/knight/delete/'+knight.id}">Usuń</a></td>
+            <td>
+                <span th:if="${employee.isWorking}">Tak</span>
+                <span th:unless="${employee.isWorking}">Nie</span>
+            </td>
+
+<!--            <td><a th:href="${'/knight?id='+knight.id}">Podgląd</a></td>-->
+<!--            <td><a th:href="${'/knight/delete/'+knight.id}">Usuń</a></td>-->
         </tr>
         </tbody>
     </table>

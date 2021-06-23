@@ -8,10 +8,23 @@ public class Employee {
     private Job job;
     private boolean isWorking;
 
+    public Employee(String name, String surname) {
+        this.name = name;
+        this.surname = surname;
+    }
+
     public Employee(String name, String surname, Job job) {
         this.name = name;
         this.surname = surname;
         this.job = job;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     public String getName() {
