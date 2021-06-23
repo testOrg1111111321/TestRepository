@@ -8,6 +8,8 @@ public class Employee {
     private Job job;
     private boolean isWorking;
 
+    public Employee() {}
+
     public Employee(String name, String surname) {
         this.name = name;
         this.surname = surname;

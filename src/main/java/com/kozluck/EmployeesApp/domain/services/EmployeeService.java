@@ -18,6 +18,10 @@ public class EmployeeService {
     public List<Employee> getAllEmployees(){
         return new ArrayList(employeesRepository.getAllEmployees());
     }
-
-
+    public void deleteEmployeeById(Integer id){
+        employeesRepository.deleteEmployeeById(id);
+    }
+    public void addEmployee(Employee employee){
+        employeesRepository.addEmployee(employee);
+    }
 }

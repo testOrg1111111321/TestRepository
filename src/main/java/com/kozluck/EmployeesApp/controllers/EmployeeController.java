@@ -7,15 +7,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.util.ClassUtils;
-import org.springframework.web.bind.annotation.ExceptionHandler;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
 @Controller
-public class EmployeeController {
+public class EmployeeController{
 
     @Autowired
     EmployeeService employeeService;
@@ -28,15 +27,24 @@ public class EmployeeController {
         return "employees";
     }
 
-    @RequestMapping("/test")
-    public String test(Model model){
-        return "testt";
+    @RequestMapping("/employee/delete/{id}")
+    public String deleteEmloyee(@PathVariable int id){
+        employeeService.deleteEmployeeById(id);
+        return "redirect:/employees";
     }
 
-    @ExceptionHandler(Throwable.class)
-    public String handleAnyException(Throwable ex, HttpServletRequest request) {
-        return ClassUtils.getShortName(ex.getClass());
+    @RequestMapping("/employeeForm")
+    public String createEmployee(Model model){
+        model.addAttribute("employee",new Employee());
+        return "employeeForm ";
     }
+
+    @RequestMapping(value = "/saveEmployee", method = RequestMethod.POST)
+    public String saveEmployee(@ModelAttribute Employee employee){
+        employeeService.addEmployee(employee);
+        return "redirect:/employees";
+    }
+
 
 
 

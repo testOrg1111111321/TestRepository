@@ -16,6 +16,7 @@
             <td>Zadanie</td>
             <td>Czy Pracuje</td>
             <td></td>
+            <td></td>
         </tr>
         </thead>
         <tbody th:each="employee : ${employees}">
@@ -30,6 +31,7 @@
                 <span th:if="${employee.isWorking}">Tak</span>
                 <span th:unless="${employee.isWorking}">Nie</span>
             </td>
+            <td><a th:href="${'/employee/delete/'+employee.id}">Usuń</a></td>
 
 <!--            <td><a th:href="${'/knight?id='+knight.id}">Podgląd</a></td>-->
 <!--            <td><a th:href="${'/knight/delete/'+knight.id}">Usuń</a></td>-->
@@ -37,7 +39,7 @@
         </tbody>
     </table>
     <div class="row">
-        <a href="/newEmployee">
+        <a th:href="@{/employeeForm}">
             Dodaj pracownika
         </a>
     </div>

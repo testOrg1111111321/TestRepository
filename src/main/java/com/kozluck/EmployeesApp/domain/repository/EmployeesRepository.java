@@ -26,6 +26,9 @@ public class EmployeesRepository {
         newEmployee.setId(Ids.getNewId(employees.keySet()));
         employees.put(Ids.getNewId(employees.keySet()),newEmployee);
     }
+    public void addEmployee(Employee employee){
+        employees.put(Ids.getNewId(employees.keySet()),employee);
+    }
 
     public void deleteEmployeeById(Integer id){
         employees.remove(id);
