@@ -2,6 +2,7 @@ package com.kozluck.EmployeesApp.domain.repository;
 
 import com.kozluck.EmployeesApp.domain.Employee;
 import com.kozluck.EmployeesApp.domain.Job;
+import com.kozluck.EmployeesApp.domain.services.JobsService;
 import com.kozluck.EmployeesApp.domain.utils.Ids;
 import org.springframework.stereotype.Repository;
 
@@ -42,9 +43,6 @@ public class EmployeesRepository {
         Optional<Employee> employee = employees.values().stream().filter(employee1 -> employee1.getName().equals(name)).findAny();
         return employee;
     }
-    public void updateKnight(int id, Employee employee){
-        employees.put(id,employee);
-    }
 
     public Collection<Employee> getAllEmployees() {
         return employees.values();
@@ -53,6 +51,7 @@ public class EmployeesRepository {
     @PostConstruct
     public void initEmployees(){
         Job job = new Job("Praca przykładowa");
+
         Employee employee = new Employee("Sebastian", "Rafael", job);
         Employee employee1 = new Employee("Kamil","Messi");
         createEmployee(employee);
