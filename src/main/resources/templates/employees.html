@@ -11,10 +11,12 @@
     <table class="table">
         <thead>
         <tr>
-            <td>Imie</td>
-            <td>Nazwisko</td>
-            <td>Zadanie</td>
-            <td>Czy Pracuje</td>
+            <td>Name</td>
+            <td>Surname</td>
+            <td>Job</td>
+            <td>is Working</td>
+            <td></td>
+            <td></td>
             <td></td>
             <td></td>
         </tr>
@@ -24,14 +26,15 @@
             <td th:text="${employee.name}"></td>
             <td th:text="${employee.surname}"></td>
             <td>
-                <span th:if="${employee.job==null}">Brak przypisanej pracy </span>
+                <span th:if="${employee.job==null}">No assigned job </span>
                 <span th:if="${employee.job!=null}" th:text="${employee.job.description}"></span>
             </td>
             <td>
-                <span th:if="${employee.isWorking}">Tak</span>
-                <span th:unless="${employee.isWorking}">Nie</span>
+                <span th:if="${employee.isWorking}">Yes</span>
+                <span th:unless="${employee.isWorking}">No</span>
             </td>
-            <td><a th:href="${'/employee/delete/'+employee.id}">Usuń</a></td>
+            <td><a th:href="${'/employee/details/' + employee.id}">Details</a></td>
+            <td><a th:href="${'/employee/delete/'+employee.id}">Delete</a></td>
 
 <!--            <td><a th:href="${'/knight?id='+knight.id}">Podgląd</a></td>-->
 <!--            <td><a th:href="${'/knight/delete/'+knight.id}">Usuń</a></td>-->

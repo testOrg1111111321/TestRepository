@@ -20,6 +20,10 @@ public class EmployeesRepository {
         employee.setId(Ids.getNewId(employees.keySet()));
         employees.put(Ids.getNewId(employees.keySet()),employee);
     }
+    public Employee getEmployeeById(int id){
+        return employees.get(id);
+    }
+
 
     public void createEmployee(String name, String surname){
         Employee newEmployee = new Employee(name,surname);

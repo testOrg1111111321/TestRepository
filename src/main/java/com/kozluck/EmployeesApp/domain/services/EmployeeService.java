@@ -24,4 +24,8 @@ public class EmployeeService {
     public void addEmployee(Employee employee){
         employeesRepository.addEmployee(employee);
     }
+
+    public Employee getEmployeeById(int id) {
+        return employeesRepository.getEmployeeById(id);
+    }
 }

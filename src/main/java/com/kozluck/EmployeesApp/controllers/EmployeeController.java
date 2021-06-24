@@ -27,6 +27,13 @@ public class EmployeeController{
         return "employees";
     }
 
+    @RequestMapping("/employee/details/{id}")
+    public String employeeDetails(@PathVariable int id, Model model){
+        Employee employee = employeeService.getEmployeeById(id);
+        model.addAttribute("employee",employee);
+        return "employeeDetails";
+    }
+
     @RequestMapping("/employee/delete/{id}")
     public String deleteEmloyee(@PathVariable int id){
         employeeService.deleteEmployeeById(id);
@@ -36,7 +43,7 @@ public class EmployeeController{
     @RequestMapping("/employeeForm")
     public String createEmployee(Model model){
         model.addAttribute("employee",new Employee());
-        return "employeeForm ";
+        return "employeeForm";
     }
 
     @RequestMapping(value = "/saveEmployee", method = RequestMethod.POST)

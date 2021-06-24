@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+  <div class="container">
+    <h1>Employee Details</h1>
+    <p>Name: <span th:text="${employee.name}"></span> </p>
+    <p>Surname: <span th:text="${employee.surname}"></span> </p>
+    <p>Job: <span th:if="${employee.job!=null}" th:text="${employee.job.description}"></span> <span th:if="${employee.job==null}">No assigned Job</span></p>
+  </div>
+
+  <div class="row">
+      <a th:href="@{/employees}"><button type="submit" class="btn btn-primary">Employees List</button></a>
+  </div>
+</body>
+</html>
