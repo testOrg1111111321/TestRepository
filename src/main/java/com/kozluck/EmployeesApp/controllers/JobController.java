@@ -5,6 +5,7 @@ import com.kozluck.EmployeesApp.domain.services.JobsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -28,6 +29,18 @@ public class JobController {
     @RequestMapping("jobs/delete/{id}")
     public String deleteJob(@PathVariable int id){
         jobsService.deleteJobById(id);
+        return "redirect:/jobs";
+    }
+
+    @RequestMapping("jobForm")
+    public String createJob(Model model){
+        model.addAttribute("job", new Job());
+        return "jobForm";
+    }
+
+    @RequestMapping("saveJob")
+    public String saveJob(@ModelAttribute Job job){
+        jobsService.addJob(job);
         return "redirect:/jobs";
     }
 }

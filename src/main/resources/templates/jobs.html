@@ -17,7 +17,6 @@
     <tbody th:each="job : ${jobs}">
     <tr>
       <td th:text="${job.description}"></td>
-      <td><a th:href="${'/jobs/details/' + job.id}">Details</a></td>
       <td><a th:href="${'/jobs/delete/'+job.id}">Delete</a></td>
     </tr>
     </tbody>

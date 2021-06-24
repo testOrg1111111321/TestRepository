@@ -4,6 +4,7 @@ public class Job {
     private int id;
     private String description;
 
+    public Job(){}
     public Job(String description) {
         this.description = description;
     }
