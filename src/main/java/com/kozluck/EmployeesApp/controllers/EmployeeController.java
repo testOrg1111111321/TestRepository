@@ -14,6 +14,11 @@ public class EmployeeController{
     @Autowired
     EmployeeService employeeService;
 
+    @RequestMapping("/")
+    public String mainView(){
+        return "mainView";
+    }
+
     @RequestMapping("/employees")
     public String getEmployees(Model model){
         List<Employee> employees = employeeService.getAllEmployees();
