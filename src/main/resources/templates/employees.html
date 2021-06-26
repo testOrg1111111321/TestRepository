@@ -29,7 +29,7 @@
             <td th:text="${employee.surname}"></td>
 
             <td>
-                <span th:if="${employee.task==null}">No assigned task <a th:href="${'tasks/chooseTask/' + employee.id}">Assign task</a></span>
+                <span th:if="${employee.task==null}">No assigned task <a th:href="${'chooseTask/' + employee.id}">Assign task</a></span>
                 <span th:if="${employee.task!=null}" th:text="${employee.task.description}"></span>
             </td>
             <td>

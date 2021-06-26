@@ -24,12 +24,12 @@ public class TaskController {
 
 
     @RequestMapping("tasks")
-    public String getTasks(@PathVariable int id ,Model model){
+    public String getTasks(Model model){
         List<Task> tasks = tasksService.getAllTasks();
         model.addAttribute("tasks", tasks);
         return "tasks";
     }
-    @RequestMapping("tasks/chooseTask/{id}")
+    @RequestMapping("chooseTask/{id}")
     public String chooseTask(@PathVariable("id") int id, Model model, Session session){
         Employee employee = employeeService.getEmployeeById(id);
         model.addAttribute("employee", employee);
@@ -42,7 +42,7 @@ public class TaskController {
     @RequestMapping(value = "/task/assign/{taskId}")
     public String assignTask(@PathVariable("taskId")int id, @ModelAttribute Employee employee){
         Task task = tasksService.getTaskById(id);
-        tasksService.deleteTaskById(id);
+        tasksService.assing(id);
         employee.setTask(task);
         employeeService.updateEmployee(employee.getId(),employee);
         return "redirect:/employees";
@@ -60,7 +60,7 @@ public class TaskController {
         return "taskForm";
     }
 
-    @RequestMapping("saveTask")
+    @RequestMapping(value = "saveTask", method = RequestMethod.POST)
     public String saveTask(@ModelAttribute Task task){
         tasksService.addTask(task);
         return "redirect:/tasks";

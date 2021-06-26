@@ -3,10 +3,15 @@ package com.kozluck.EmployeesApp.domain;
 public class Task {
     private int id;
     private String description;
+    private int numberOfLeftContractors;
 
     public Task(){}
     public Task(String description) {
         this.description = description;
+    }
+    public Task(String description, int numberOfLeftContractors) {
+        this.description = description;
+        this.numberOfLeftContractors = numberOfLeftContractors;
     }
 
     public String getDescription() {
@@ -23,5 +28,13 @@ public class Task {
 
     public void setId(int id) {
         this.id = id;
+    }
+
+    public int getNumberOfLeftContractors() {
+        return numberOfLeftContractors;
+    }
+
+    public void setNumberOfLeftContractors(int numberOfLeftContractors) {
+        this.numberOfLeftContractors = numberOfLeftContractors;
     }
 }

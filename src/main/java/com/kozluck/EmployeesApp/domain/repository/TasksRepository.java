@@ -35,11 +35,23 @@ public class TasksRepository {
         task.setId(Ids.getNewId(tasks.keySet()));
         tasks.put(Ids.getNewId(tasks.keySet()),task);
     }
+
+    public void assign(int id){
+        Task task = tasks.get(id);
+        if(task.getNumberOfLeftContractors()>1){
+            task.setNumberOfLeftContractors(task.getNumberOfLeftContractors() - 1);
+        }else{
+            tasks.remove(id);
+        }
+
+
+    }
+
     @PostConstruct
     public void initJobs(){
-        Task task = new Task("Test1");
-        Task task1 = new Task("Test2");
-        Task task2 = new Task("Test3");
+        Task task = new Task("Test1",2);
+        Task task1 = new Task("Test2",1);
+        Task task2 = new Task("Test3",2);
         addTask(task);
         addTask(task1);
         addTask(task2);

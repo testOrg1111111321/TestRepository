@@ -12,11 +12,13 @@
     <thead>
     <tr>
       <td>Task Description</td>
+      <td>Number of Left Contactors</td>
     </tr>
     </thead>
     <tbody th:each="task : ${tasks}">
     <tr>
       <td th:text="${task.description}"></td>
+      <td th:text="${task.numberOfLeftContractors}"></td>
       <td><a th:href="${'/task/delete/'+task.id}">Delete</a></td>
     </tr>
     </tbody>

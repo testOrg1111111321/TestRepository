@@ -9,7 +9,7 @@
     <h1>Employee Details</h1>
     <p>Name: <span th:text="${employee.name}"></span> </p>
     <p>Surname: <span th:text="${employee.surname}"></span> </p>
-    <p>Job: <span th:if="${employee.job!=null}" th:text="${employee.job.description}"></span> <span th:if="${employee.job==null}">No assigned Job</span></p>
+    <p>Task: <span th:if="${employee.task!=null}" th:text="${employee.task.description}"></span> <span th:if="${employee.task==null}">No assigned Job</span></p>
   </div>
 
   <div class="row">

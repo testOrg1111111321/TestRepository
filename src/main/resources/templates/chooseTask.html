@@ -16,6 +16,9 @@
 
     <tr>
       <td>Task Description</td>
+      <td>Number of Left Contactors</td>
+      <td></td>
+      <td></td>
     </tr>
     </thead>
     <tbody th:each="task : ${tasks}">
@@ -27,7 +30,8 @@
         <input type="hidden"  th:field="*{surname}">
 
         <td th:text="${task.description}"></td>
-        <td th:text="${task.id}"></td>
+        <td th:text="${task.numberOfLeftContractors}"></td>
+
         <td><button type="submit" class="btn btn-primary">Choose</button></td>
       </form>
     </tr>
