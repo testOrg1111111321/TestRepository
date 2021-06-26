@@ -5,7 +5,7 @@ public class Employee {
     private int id;
     private String name;
     private String surname;
-    private Job job;
+    private Task task;
     private boolean isWorking;
 
     public Employee() {}
@@ -15,10 +15,10 @@ public class Employee {
         this.surname = surname;
     }
 
-    public Employee(String name, String surname, Job job) {
+    public Employee(String name, String surname, Task task){
         this.name = name;
         this.surname = surname;
-        this.job = job;
+        this.task = task;
     }
 
     public int getId() {
@@ -45,12 +45,12 @@ public class Employee {
         this.surname = surname;
     }
 
-    public Job getJob() {
-        return job;
+    public Task getTask() {
+        return task;
     }
 
-    public void setJob(Job job) {
-        this.job = job;
+    public void setTask(Task task) {
+        this.task = task;
     }
 
     public boolean isWorking() {

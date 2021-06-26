@@ -11,9 +11,10 @@
     <table class="table">
         <thead>
         <tr>
+            <td>ID</td>
             <td>Name</td>
             <td>Surname</td>
-            <td>Job</td>
+            <td>Task</td>
             <td>is Working</td>
             <td></td>
             <td></td>
@@ -23,11 +24,13 @@
         </thead>
         <tbody th:each="employee : ${employees}">
         <tr>
+            <td th:text="${employee.id}"></td>
             <td th:text="${employee.name}"></td>
             <td th:text="${employee.surname}"></td>
+
             <td>
-                <span th:if="${employee.job==null}">No assigned job </span>
-                <span th:if="${employee.job!=null}" th:text="${employee.job.description}"></span>
+                <span th:if="${employee.task==null}">No assigned task <a th:href="${'tasks/chooseTask/' + employee.id}">Assign task</a></span>
+                <span th:if="${employee.task!=null}" th:text="${employee.task.description}"></span>
             </td>
             <td>
                 <span th:if="${employee.isWorking}">Yes</span>
@@ -41,7 +44,7 @@
     </table>
     <div class="row">
         <a th:href="@{/employeeForm}">
-            Dodaj pracownika
+            Add new employee
         </a>
     </div>
 </div>

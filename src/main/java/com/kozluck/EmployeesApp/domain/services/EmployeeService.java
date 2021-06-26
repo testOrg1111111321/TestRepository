@@ -22,6 +22,9 @@ public class EmployeeService {
     public void addEmployee(Employee employee){
         employeesRepository.addEmployee(employee);
     }
+    public void updateEmployee(int id, Employee employee){
+        employeesRepository.updateEmployee(id,employee);
+    }
 
     public Employee getEmployeeById(int id) {
         return employeesRepository.getEmployeeById(id);

@@ -1,11 +1,11 @@
 package com.kozluck.EmployeesApp.domain;
 
-public class Job {
+public class Task {
     private int id;
     private String description;
 
-    public Job(){}
-    public Job(String description) {
+    public Task(){}
+    public Task(String description) {
         this.description = description;
     }
 

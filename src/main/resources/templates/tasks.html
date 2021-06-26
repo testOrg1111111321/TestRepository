@@ -1,7 +1,7 @@
 <!DOCTYPE HTML>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-  <title>Jobs</title>
+  <title>Task</title>
   <meta http-equiv="Content-Type" content="text/html" charset="UTF-8"/>
   <link rel="stylesheet" th:href="@{/webjars/bootstrap/5.0.1/css/bootstrap.min.css}">
   <script th:src="@{webjars/bootstrap/5.0.1/js/bootstrap.min.js}"></script>
@@ -11,19 +11,19 @@
   <table class="table">
     <thead>
     <tr>
-      <td>Job Description</td>
+      <td>Task Description</td>
     </tr>
     </thead>
-    <tbody th:each="job : ${jobs}">
+    <tbody th:each="task : ${tasks}">
     <tr>
-      <td th:text="${job.description}"></td>
-      <td><a th:href="${'/jobs/delete/'+job.id}">Delete</a></td>
+      <td th:text="${task.description}"></td>
+      <td><a th:href="${'/task/delete/'+task.id}">Delete</a></td>
     </tr>
     </tbody>
   </table>
   <div class="row">
-    <a th:href="@{/jobForm}">
-      Add new Job
+    <a th:href="@{/taskForm}">
+      Add new Task
     </a>
   </div>
 </div>

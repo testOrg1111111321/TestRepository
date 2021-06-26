@@ -1,0 +1,39 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <title>Choose task</title>
+  <meta http-equiv="Content-Type" content="text/html" charset="UTF-8"/>
+  <link rel="stylesheet" th:href="@{/webjars/bootstrap/5.0.1/css/bootstrap.min.css}">
+  <script th:src="@{webjars/bootstrap/5.0.1/js/bootstrap.min.js}"></script>
+</head>
+<body>
+<div class="container">
+  <table class="table">
+    <thead>
+
+
+
+
+    <tr>
+      <td>Task Description</td>
+    </tr>
+    </thead>
+    <tbody th:each="task : ${tasks}">
+    <tr>
+
+      <form action="#" th:object="${employee}" th:action="@{'/task/assign/' + ${task.id}}" method="post">
+        <input type="hidden"  th:field="*{id}">
+        <input type="hidden"  th:field="*{name}">
+        <input type="hidden"  th:field="*{surname}">
+
+        <td th:text="${task.description}"></td>
+        <td th:text="${task.id}"></td>
+        <td><button type="submit" class="btn btn-primary">Choose</button></td>
+      </form>
+    </tr>
+    </tbody>
+  </table>
+</div>
+
+</body>
+</html>

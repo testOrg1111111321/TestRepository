@@ -1,8 +1,7 @@
 package com.kozluck.EmployeesApp.domain.repository;
 
 import com.kozluck.EmployeesApp.domain.Employee;
-import com.kozluck.EmployeesApp.domain.Job;
-import com.kozluck.EmployeesApp.domain.services.JobsService;
+import com.kozluck.EmployeesApp.domain.Task;
 import com.kozluck.EmployeesApp.domain.utils.Ids;
 import org.springframework.stereotype.Repository;
 
@@ -25,6 +24,9 @@ public class EmployeesRepository {
         return employees.get(id);
     }
 
+    public void updateEmployee(int id, Employee employee){
+        employees.put(id,employee);
+    }
 
     public void createEmployee(String name, String surname){
         Employee newEmployee = new Employee(name,surname);
@@ -32,6 +34,7 @@ public class EmployeesRepository {
         employees.put(Ids.getNewId(employees.keySet()),newEmployee);
     }
     public void addEmployee(Employee employee){
+        employee.setId(Ids.getNewId(employees.keySet()));
         employees.put(Ids.getNewId(employees.keySet()),employee);
     }
 
@@ -50,12 +53,14 @@ public class EmployeesRepository {
 
     @PostConstruct
     public void initEmployees(){
-        Job job = new Job("Praca przykładowa");
+        Task job = new Task("Task1");
 
         Employee employee = new Employee("Sebastian", "Rafael", job);
         Employee employee1 = new Employee("Kamil","Messi");
         createEmployee(employee);
         createEmployee(employee1);
+
+
     }
 
 }

@@ -6,7 +6,7 @@ public class Ids {
     public static int getNewId(Set<Integer> keys){
         if(keys.isEmpty()) return 0;
         else {
-            Integer integer = keys.stream().max(((o1, o2) -> o1.compareTo(o2))).get();
+            Integer integer = keys.stream().max((Integer::compareTo)).get();
             return integer+1;
         }
     }

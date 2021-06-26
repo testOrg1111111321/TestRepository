@@ -8,8 +8,8 @@
 </head>
 <body>
 <div class="container">
-  <h1>Add new Job to your system!</h1>
-  <form th:action="@{/saveJob}" th:object="${job}" method="post">
+  <h1>Add new Task to your system!</h1>
+  <form th:action="@{/saveTask}" th:object="${task}" method="post">
     <div class="form-group">
       <label for="nameInput">Description:</label>
       <input type="text" class="form-control" id="nameInput" placeholder="Enter description" th:field="*{description}">
