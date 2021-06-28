@@ -11,6 +11,18 @@
   <h1>Add new Employee to your system!</h1>
   <form th:action="@{/saveEmployee}" th:object="${employee}" method="post">
     <div class="form-group">
+      <label for="userNameInput">Username:</label>
+      <input type="text" class="form-control" id="userNameInput" placeholder="Enter username" th:field="*{username}">
+    </div>
+    <div class="form-group">
+      <label for="passwordInput">Password:</label>
+      <input type="password" class="form-control" id="passwordInput" placeholder="Enter password" th:field="*{password}">
+    </div>
+    <div class="form-group">
+      <label for="emailInput">Email:</label>
+      <input type="email" class="form-control" id="emailInput" placeholder="Enter email" th:field="*{email}">
+    </div>
+    <div class="form-group">
       <label for="nameInput">Name:</label>
       <input type="text" class="form-control" id="nameInput" placeholder="Enter name" th:field="*{name}">
     </div>
@@ -21,6 +33,7 @@
     <div class="row">
       <button type="submit" class="btn btn-primary">Submit</button>
     </div>
+    <p th:text="${message}"></p>
   </form>
 
 </div>

@@ -15,7 +15,6 @@
             <td>Name</td>
             <td>Surname</td>
             <td>Task</td>
-            <td>is Working</td>
             <td></td>
             <td></td>
             <td></td>
@@ -31,10 +30,6 @@
             <td>
                 <span th:if="${employee.task==null}">No assigned task <a th:href="${'chooseTask/' + employee.id}">Assign task</a></span>
                 <span th:if="${employee.task!=null}" th:text="${employee.task.description}"></span>
-            </td>
-            <td>
-                <span th:if="${employee.isWorking}">Yes</span>
-                <span th:unless="${employee.isWorking}">No</span>
             </td>
             <td><a th:href="${'/employee/details/' + employee.id}">Details</a></td>
             <td><a th:href="${'/employee/delete/'+employee.id}">Delete</a></td>

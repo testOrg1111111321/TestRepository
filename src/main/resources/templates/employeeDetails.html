@@ -12,7 +12,10 @@
     <p>ID: <span th:text="${employee.id}"></span> </p>
     <p>Name: <span th:text="${employee.name}"></span> </p>
     <p>Surname: <span th:text="${employee.surname}"></span> </p>
-    <p>Task: <span th:if="${employee.task!=null}" th:text="${employee.task.description}"></span> <span th:if="${employee.task==null}">No assigned Job</span></p>
+    <p>Username: <span th:text="${employee.username}"></span> </p>
+    <p>Password: <span th:text="${employee.password}"></span> </p>
+    <p>Email: <span th:text="${employee.email}"></span> </p>
+    <p>Task: <span th:if="${employee.task!=null}" th:text="${employee.task.description}"></span> <span th:if="${employee.task==null}">No assigned task</span></p>
 
 
       <div class="row">

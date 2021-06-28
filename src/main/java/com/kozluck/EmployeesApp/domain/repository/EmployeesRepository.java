@@ -53,14 +53,20 @@ public class EmployeesRepository {
 
     @PostConstruct
     public void initEmployees(){
-        Task job = new Task("Task1");
+        Task task = new Task("Task1");
 
-        Employee employee = new Employee("Sebastian", "Rafael", job);
-        Employee employee1 = new Employee("Kamil","Messi");
+        Employee employee = new Employee("Sebastian", "Rafael",task,"username","password","email@email.com");
+        Employee employee1 = new Employee("Kamil","Messi",task,"username","password","email1@email.com");
         createEmployee(employee);
         createEmployee(employee1);
 
 
     }
 
+    public boolean findByEmail(String email) {
+       for (int i = 0; i < employees.size(); i++){
+           if(employees.get(i).getEmail().equals(email)) return true;
+       }
+       return false;
+    }
 }
