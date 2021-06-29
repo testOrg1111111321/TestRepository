@@ -33,8 +33,8 @@ public class TasksRepository {
     }
 
     @Transactional
-    public void deleteTaskById(int id){
-        em.remove(id);
+    public void deleteTask(Task task){
+        em.remove(task);
     }
 
     @Transactional

@@ -29,8 +29,8 @@ public class TasksService {
         tasksRepository.assign(id);
     }
 
-    public void deleteTaskById(int id){
-        tasksRepository.deleteTaskById(id);
+    public void deleteTask(Task task){
+        tasksRepository.deleteTask(task);
     }
 
     public void addTask(Task task) {

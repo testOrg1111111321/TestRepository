@@ -50,7 +50,8 @@ public class TaskController {
 
     @RequestMapping("task/delete/{id}")
     public String deleteJob(@PathVariable int id){
-        tasksService.deleteTaskById(id);
+        Task task = tasksService.getTaskById(id);
+        tasksService.deleteTask(task);
         return "redirect:/tasks";
     }
 
