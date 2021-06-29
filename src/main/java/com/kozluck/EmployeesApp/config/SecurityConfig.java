@@ -1,5 +1,6 @@
 package com.kozluck.EmployeesApp.config;
 
+import com.kozluck.EmployeesApp.domain.services.MyUserDetailsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -21,6 +22,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
 
 
+    @Autowired
+    MyUserDetailsService userDetailsService;
 
     @Bean
     public PasswordEncoder passwordEncoder(){
@@ -30,9 +33,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
         auth.inMemoryAuthentication().passwordEncoder(passwordEncoder)
-                .withUser("employee").password(passwordEncoder().encode("employeePass")).roles("USER")
-                .and()
                 .withUser("root").password(passwordEncoder().encode("rootPass")).roles("ADMIN");
+
+        auth.userDetailsService(userDetailsService);
 
     }
 

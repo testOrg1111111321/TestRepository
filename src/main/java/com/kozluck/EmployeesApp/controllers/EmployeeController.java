@@ -2,6 +2,7 @@ package com.kozluck.EmployeesApp.controllers;
 
 import com.kozluck.EmployeesApp.domain.Employee;
 import com.kozluck.EmployeesApp.domain.services.EmployeeService;
+import com.kozluck.EmployeesApp.domain.services.UserService;
 import com.kozluck.EmployeesApp.domain.utils.UserAlreadyExistException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
@@ -25,15 +26,9 @@ public class EmployeeController{
     @Autowired
     EmployeeService employeeService;
 
-    private final InMemoryUserDetailsManager inMemoryUserDetailsManager;
+    @Autowired
+    UserService userService;
 
-    public PasswordEncoder passwordEncoder(){
-        return new BCryptPasswordEncoder();
-    }
-
-    public EmployeeController(InMemoryUserDetailsManager inMemoryUserDetailsManager) {
-        this.inMemoryUserDetailsManager = inMemoryUserDetailsManager;
-    }
 
     @RequestMapping("/")
     public String mainView(){
@@ -72,8 +67,8 @@ public class EmployeeController{
     public ModelAndView saveEmployee(@ModelAttribute("employee") @Valid Employee employee, BindingResult bindingResult){
 
         try{
+            userService.saveUser(employee.getUser());
             employeeService.addEmployee(employee);
-            inMemoryUserDetailsManager.createUser(User.withUsername(employee.getUsername()).password(passwordEncoder().encode(employee.getPassword())).roles("USER").build());
         }catch(UserAlreadyExistException userExists){
             return new ModelAndView("/employeeForm","message","Account with this username/email already exists.");
 

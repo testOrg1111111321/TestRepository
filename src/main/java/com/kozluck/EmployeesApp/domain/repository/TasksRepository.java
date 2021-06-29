@@ -8,12 +8,11 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.transaction.Transactional;
 import java.util.Collection;
-import java.util.HashMap;
-import java.util.Map;
+
 
 @Repository
 public class TasksRepository {
-    private Map<Integer, Task> tasks = new HashMap<>();
+
 
     @PersistenceContext
     private EntityManager em;
@@ -49,7 +48,7 @@ public class TasksRepository {
         if(task.getNumberOfLeftContractors()>1){
             task.setNumberOfLeftContractors(task.getNumberOfLeftContractors() - 1);
         }else{
-            tasks.remove(id);
+            em.remove(id);
         }
 
 

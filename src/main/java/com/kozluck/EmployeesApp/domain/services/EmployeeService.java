@@ -22,9 +22,6 @@ public class EmployeeService {
     }
 
     public void addEmployee(Employee employee) throws UserAlreadyExistException {
-        if(isEmailExisting(employee.getEmail())){
-            throw new UserAlreadyExistException("There is an account with that email address: " + employee.getEmail());
-        }
         employeesRepository.addEmployee(employee);
     }
     public void updateEmployee( Employee employee){

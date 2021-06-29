@@ -19,10 +19,6 @@ public class EmployeesRepository {
     @PersistenceContext
     EntityManager em;
 
-    @Transactional
-    public void createEmployee(Employee employee){
-        em.persist(employee);
-    }
 
     public Employee getEmployeeById(int id){
         return em.find(Employee.class,id);
@@ -48,12 +44,9 @@ public class EmployeesRepository {
         return em.createQuery("from Employee", Employee.class).getResultList();
     }
 
-    @PostConstruct
-    public void initEmployees(){
-    }
 
     public boolean isEmailExisting(String email) {
-       Query query = em.createQuery("SELECT email FROM Employee WHERE email = ?1");
+       Query query = em.createQuery("SELECT email FROM User WHERE email = ?1");
        query.setParameter(1,email);
        List list = query.getResultList();
         return list.size() > 0;

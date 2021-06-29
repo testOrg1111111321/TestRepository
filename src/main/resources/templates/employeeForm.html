@@ -12,15 +12,15 @@
   <form th:action="@{/saveEmployee}" th:object="${employee}" method="post">
     <div class="form-group">
       <label for="userNameInput">Username:</label>
-      <input type="text" class="form-control" id="userNameInput" placeholder="Enter username" th:field="*{username}">
+      <input type="text" class="form-control" id="userNameInput" placeholder="Enter username" th:field="*{user.username}">
     </div>
     <div class="form-group">
       <label for="passwordInput">Password:</label>
-      <input type="password" class="form-control" id="passwordInput" placeholder="Enter password" th:field="*{password}">
+      <input type="password" class="form-control" id="passwordInput" placeholder="Enter password" th:field="*{user.password}">
     </div>
     <div class="form-group">
       <label for="emailInput">Email:</label>
-      <input type="email" class="form-control" id="emailInput" placeholder="Enter email" th:field="*{email}">
+      <input type="email" class="form-control" id="emailInput" placeholder="Enter email" th:field="*{user.email}">
     </div>
     <div class="form-group">
       <label for="nameInput">Name:</label>

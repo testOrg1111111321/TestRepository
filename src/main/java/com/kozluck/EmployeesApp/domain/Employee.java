@@ -2,10 +2,7 @@ package com.kozluck.EmployeesApp.domain;
 
 import com.kozluck.EmployeesApp.domain.utils.ValidEmail;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.ManyToOne;
+import javax.persistence.*;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 
@@ -27,43 +24,16 @@ public class Employee {
     @ManyToOne
     private Task task;
 
-    @NotEmpty
-    @NotNull
-    private String username;
-
-    @NotEmpty
-    @NotNull
-    private String password;
-
-    private boolean enabled = true;
-
-    @NotEmpty
-    @NotNull
-    @ValidEmail
-    private String email;
+    @OneToOne
+    private User user;
 
 
     public Employee() {}
 
-    public Employee(String name, String surname) {
-        this.name = name;
-        this.surname = surname;
-    }
-
-    public Employee(String name, String surname, Task task , String  username, String  password){
+    public Employee(String name, String surname, Task task){
         this.name = name;
         this.surname = surname;
         this.task = task;
-        this.username = username;
-        this.password = password;
-    }
-    public Employee(String name, String surname, Task task , String  username, String  password, String email){
-        this.name = name;
-        this.surname = surname;
-        this.task = task;
-        this.username = username;
-        this.password = password;
-        this.email = email;
     }
 
     public int getId() {
@@ -98,37 +68,11 @@ public class Employee {
         this.task = task;
     }
 
-    public String getUsername() {
-        return username;
+    public User getUser() {
+        return user;
     }
 
-    public void setUsername(String username) {
-        this.username = username;
+    public void setUser(User user) {
+        this.user = user;
     }
-
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
-    public boolean isEnabled() {
-        return enabled;
-    }
-
-    public void setEnabled(boolean enabled) {
-        this.enabled = enabled;
-    }
-
-
 }
