@@ -56,8 +56,9 @@ public class EmployeeController{
     }
 
     @RequestMapping("/employee/delete/{id}")
-    public String deleteEmloyee(@PathVariable int id){
-        employeeService.deleteEmployeeById(id);
+    public String deleteEmloyee(@PathVariable Integer id){
+        Employee employee = employeeService.getEmployeeById(id);
+        employeeService.deleteEmployee(employee);
         return "redirect:/employees";
     }
 

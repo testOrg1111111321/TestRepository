@@ -7,6 +7,7 @@ import org.springframework.stereotype.Repository;
 import javax.annotation.PostConstruct;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
 import javax.transaction.Transactional;
 import java.util.Collection;
 import java.util.List;
@@ -37,8 +38,9 @@ public class EmployeesRepository {
         em.persist(employee);
     }
 
-    public void deleteEmployeeById(Integer id){
-        em.remove(id);
+    @Transactional
+    public void deleteEmployee(Employee employee){
+        em.remove(employee);
     }
 
 
@@ -51,7 +53,9 @@ public class EmployeesRepository {
     }
 
     public boolean isEmailExisting(String email) {
-       List list = em.createQuery("from Employee where email == " + email).getResultList();
-        return list.size() <= 0;
+       Query query = em.createQuery("SELECT email FROM Employee WHERE email = ?1");
+       query.setParameter(1,email);
+       List list = query.getResultList();
+        return list.size() > 0;
     }
 }

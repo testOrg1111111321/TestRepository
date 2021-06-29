@@ -17,8 +17,8 @@ public class EmployeeService {
     public List<Employee> getAllEmployees(){
         return new ArrayList(employeesRepository.getAllEmployees());
     }
-    public void deleteEmployeeById(Integer id){
-        employeesRepository.deleteEmployeeById(id);
+    public void deleteEmployee(Employee employee){
+        employeesRepository.deleteEmployee(employee);
     }
 
     public void addEmployee(Employee employee) throws UserAlreadyExistException {

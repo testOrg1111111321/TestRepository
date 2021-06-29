@@ -8,7 +8,7 @@ import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
+
 
 @Entity
 public class Employee {
@@ -35,7 +35,7 @@ public class Employee {
     @NotNull
     private String password;
 
-    private boolean enabled;
+    private boolean enabled = true;
 
     @NotEmpty
     @NotNull
