@@ -2,71 +2,56 @@ package com.kozluck.EmployeesApp.domain.repository;
 
 import com.kozluck.EmployeesApp.domain.Employee;
 import com.kozluck.EmployeesApp.domain.Task;
-import com.kozluck.EmployeesApp.domain.utils.Ids;
 import org.springframework.stereotype.Repository;
 
 import javax.annotation.PostConstruct;
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
+import javax.transaction.Transactional;
 import java.util.Collection;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Optional;
+import java.util.List;
+
 
 @Repository
 public class EmployeesRepository {
 
-    Map<Integer, Employee> employees = new HashMap<>();
+    @PersistenceContext
+    EntityManager em;
 
+    @Transactional
     public void createEmployee(Employee employee){
-        employee.setId(Ids.getNewId(employees.keySet()));
-        employees.put(Ids.getNewId(employees.keySet()),employee);
+        em.persist(employee);
     }
+
     public Employee getEmployeeById(int id){
-        return employees.get(id);
+        return em.find(Employee.class,id);
     }
 
-    public void updateEmployee(int id, Employee employee){
-        employees.put(id,employee);
+    @Transactional
+    public void updateEmployee(Employee employee){
+        em.merge(employee);
     }
 
-    public void createEmployee(String name, String surname){
-        Employee newEmployee = new Employee(name,surname);
-        newEmployee.setId(Ids.getNewId(employees.keySet()));
-        employees.put(Ids.getNewId(employees.keySet()),newEmployee);
-    }
+    @Transactional
     public void addEmployee(Employee employee){
-        employee.setId(Ids.getNewId(employees.keySet()));
-        employees.put(Ids.getNewId(employees.keySet()),employee);
+        em.persist(employee);
     }
 
     public void deleteEmployeeById(Integer id){
-        employees.remove(id);
+        em.remove(id);
     }
 
-    public Optional<Employee> getEmployee(String name){
-        Optional<Employee> employee = employees.values().stream().filter(employee1 -> employee1.getName().equals(name)).findAny();
-        return employee;
-    }
 
     public Collection<Employee> getAllEmployees() {
-        return employees.values();
+        return em.createQuery("from Employee", Employee.class).getResultList();
     }
 
     @PostConstruct
     public void initEmployees(){
-        Task task = new Task("Task1");
-
-        Employee employee = new Employee("Sebastian", "Rafael",task,"username","password","email@email.com");
-        Employee employee1 = new Employee("Kamil","Messi",task,"username","password","email1@email.com");
-        createEmployee(employee);
-        createEmployee(employee1);
-
-
     }
 
-    public boolean findByEmail(String email) {
-       for (int i = 0; i < employees.size(); i++){
-           if(employees.get(i).getEmail().equals(email)) return true;
-       }
-       return false;
+    public boolean isEmailExisting(String email) {
+       List list = em.createQuery("from Employee where email == " + email).getResultList();
+        return list.size() <= 0;
     }
 }

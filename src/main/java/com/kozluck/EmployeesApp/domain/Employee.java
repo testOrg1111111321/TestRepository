@@ -1,15 +1,19 @@
 package com.kozluck.EmployeesApp.domain;
 
-
-import com.kozluck.EmployeesApp.domain.utils.PasswordMatches;
 import com.kozluck.EmployeesApp.domain.utils.ValidEmail;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
-@PasswordMatches
+@Entity
 public class Employee {
+    @Id
+    @GeneratedValue
     private int id;
 
     @NotEmpty
@@ -20,6 +24,7 @@ public class Employee {
     @NotNull
     private String surname;
 
+    @ManyToOne
     private Task task;
 
     @NotEmpty
@@ -30,9 +35,7 @@ public class Employee {
     @NotNull
     private String password;
 
-    @NotNull
-    @Size(min = 1)
-    private String matchingPassword;
+    private boolean enabled;
 
     @NotEmpty
     @NotNull
@@ -119,12 +122,13 @@ public class Employee {
         this.email = email;
     }
 
-    public void setMatchingPassword(final String matchingPassword) {
-        this.matchingPassword = matchingPassword;
+    public boolean isEnabled() {
+        return enabled;
     }
 
-    public String getMatchingPassword() {
-        return matchingPassword;
+    public void setEnabled(boolean enabled) {
+        this.enabled = enabled;
     }
+
 
 }

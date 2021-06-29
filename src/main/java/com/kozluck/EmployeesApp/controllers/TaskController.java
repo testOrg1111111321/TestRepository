@@ -44,7 +44,7 @@ public class TaskController {
         Task task = tasksService.getTaskById(id);
         tasksService.assing(id);
         employee.setTask(task);
-        employeeService.updateEmployee(employee.getId(),employee);
+        employeeService.updateEmployee(employee);
         return "redirect:/employees";
     }
 

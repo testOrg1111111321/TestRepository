@@ -22,17 +22,17 @@ public class EmployeeService {
     }
 
     public void addEmployee(Employee employee) throws UserAlreadyExistException {
-        if(emailExist(employee.getEmail())){
+        if(isEmailExisting(employee.getEmail())){
             throw new UserAlreadyExistException("There is an account with that email address: " + employee.getEmail());
         }
         employeesRepository.addEmployee(employee);
     }
-    public void updateEmployee(int id, Employee employee){
-        employeesRepository.updateEmployee(id,employee);
+    public void updateEmployee( Employee employee){
+        employeesRepository.updateEmployee(employee);
     }
 
-    private boolean emailExist(String email){
-        return employeesRepository.findByEmail(email);
+    private boolean isEmailExisting(String email){
+        return employeesRepository.isEmailExisting(email);
     }
 
     public Employee getEmployeeById(int id) {
