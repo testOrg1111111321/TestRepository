@@ -1,10 +1,8 @@
 package com.kozluck.EmployeesApp.domain.repository;
 
-import com.kozluck.EmployeesApp.domain.Employee;
-import com.kozluck.EmployeesApp.domain.Task;
+import com.kozluck.EmployeesApp.domain.models.Employee;
 import org.springframework.stereotype.Repository;
 
-import javax.annotation.PostConstruct;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
@@ -37,6 +35,7 @@ public class EmployeesRepository {
     @Transactional
     public void deleteEmployee(Employee employee){
         em.remove(employee);
+        em.remove(employee.getUser());
     }
 
 

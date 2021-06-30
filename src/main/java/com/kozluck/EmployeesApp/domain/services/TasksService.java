@@ -1,6 +1,6 @@
 package com.kozluck.EmployeesApp.domain.services;
 
-import com.kozluck.EmployeesApp.domain.Task;
+import com.kozluck.EmployeesApp.domain.models.Task;
 import com.kozluck.EmployeesApp.domain.repository.TasksRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

@@ -1,6 +1,6 @@
 package com.kozluck.EmployeesApp.domain.services;
 
-import com.kozluck.EmployeesApp.domain.Employee;
+import com.kozluck.EmployeesApp.domain.models.Employee;
 import com.kozluck.EmployeesApp.domain.repository.EmployeesRepository;
 import com.kozluck.EmployeesApp.domain.utils.UserAlreadyExistException;
 import org.springframework.beans.factory.annotation.Autowired;

@@ -1,4 +1,4 @@
-package com.kozluck.EmployeesApp.domain;
+package com.kozluck.EmployeesApp.domain.models;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;

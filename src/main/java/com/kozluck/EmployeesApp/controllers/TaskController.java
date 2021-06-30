@@ -1,7 +1,7 @@
 package com.kozluck.EmployeesApp.controllers;
 
-import com.kozluck.EmployeesApp.domain.Employee;
-import com.kozluck.EmployeesApp.domain.Task;
+import com.kozluck.EmployeesApp.domain.models.Employee;
+import com.kozluck.EmployeesApp.domain.models.Task;
 import com.kozluck.EmployeesApp.domain.services.EmployeeService;
 import com.kozluck.EmployeesApp.domain.services.TasksService;
 import org.springframework.beans.factory.annotation.Autowired;

@@ -1,15 +1,10 @@
 package com.kozluck.EmployeesApp.controllers;
 
-import com.kozluck.EmployeesApp.domain.Employee;
+import com.kozluck.EmployeesApp.domain.models.Employee;
 import com.kozluck.EmployeesApp.domain.services.EmployeeService;
 import com.kozluck.EmployeesApp.domain.services.UserService;
 import com.kozluck.EmployeesApp.domain.utils.UserAlreadyExistException;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.userdetails.User;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.security.provisioning.InMemoryUserDetailsManager;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -17,7 +12,6 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.validation.Valid;
-import java.util.ArrayList;
 import java.util.List;
 
 @Controller

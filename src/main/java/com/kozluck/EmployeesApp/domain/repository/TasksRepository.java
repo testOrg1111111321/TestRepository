@@ -1,6 +1,6 @@
 package com.kozluck.EmployeesApp.domain.repository;
 
-import com.kozluck.EmployeesApp.domain.Task;
+import com.kozluck.EmployeesApp.domain.models.Task;
 import org.springframework.stereotype.Repository;
 
 import javax.annotation.PostConstruct;

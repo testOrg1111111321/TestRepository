@@ -1,6 +1,7 @@
-package com.kozluck.EmployeesApp.domain;
+package com.kozluck.EmployeesApp.domain.models;
 
-import com.kozluck.EmployeesApp.domain.utils.ValidEmail;
+import com.kozluck.EmployeesApp.domain.models.Task;
+import com.kozluck.EmployeesApp.domain.models.User;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotEmpty;
