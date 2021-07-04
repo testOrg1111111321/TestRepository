@@ -1,10 +1,16 @@
 package com.kozluck.EmployeesApp.controllers;
 
 import com.kozluck.EmployeesApp.domain.models.Employee;
+import com.kozluck.EmployeesApp.domain.models.MyUserDetails;
+import com.kozluck.EmployeesApp.domain.models.User;
 import com.kozluck.EmployeesApp.domain.services.EmployeeService;
 import com.kozluck.EmployeesApp.domain.services.UserService;
 import com.kozluck.EmployeesApp.domain.utils.UserAlreadyExistException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -13,6 +19,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import javax.validation.Valid;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Controller
 public class EmployeeController{
@@ -25,9 +32,23 @@ public class EmployeeController{
 
 
     @RequestMapping("/")
-    public String mainView(){
-        return "mainView";
+    public String mainView(Model model){
+        List<? extends GrantedAuthority> userAuth = SecurityContextHolder.getContext().getAuthentication().getAuthorities().stream().collect(Collectors.toList());
+
+        if(userAuth.contains(new SimpleGrantedAuthority("ROLE_ADMIN"))){
+            return "mainView";
+        } else{
+            Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+            MyUserDetails userDetails = (MyUserDetails)auth.getPrincipal();
+            User user = userService.findByUsernameIs(userDetails.getUsername());
+            Employee employee = employeeService.findByUser(user);
+            model.addAttribute("employee",employee);
+            return "employeeView";
+        }
+
+
     }
+
 
     @RequestMapping("/employees")
     public String getEmployees(Model model){
@@ -57,18 +78,28 @@ public class EmployeeController{
         return "employeeForm";
     }
 
-    @RequestMapping(value = "/saveEmployee", method = RequestMethod.POST)
-    public ModelAndView saveEmployee(@ModelAttribute("employee") @Valid Employee employee, BindingResult bindingResult){
+    @PostMapping(value = "/saveEmployee")
+    public ModelAndView saveEmployee(@Valid @ModelAttribute("employee") Employee employee, BindingResult errors){
 
-        try{
-            userService.saveUser(employee.getUser());
-            employeeService.addEmployee(employee);
-        }catch(UserAlreadyExistException userExists){
-            return new ModelAndView("/employeeForm","message","Account with this username/email already exists.");
+        if(errors.hasErrors()){
+            errors.getAllErrors().forEach(error->{
+                System.out.println(error.getObjectName() + "" + error.getDefaultMessage());
+            });
 
+            return new ModelAndView("employeeForm","employee",employee);
+
+        }else{
+            try{
+
+                userService.saveUser(employee.getUser());
+                employeeService.addEmployee(employee);
+
+            }catch(UserAlreadyExistException userExists){
+                return new ModelAndView("/employeeForm","message","Account with this username/email already exists.");
+            }
+
+            return new ModelAndView("redirect:/employees","employees",employeeService.getAllEmployees());
         }
-        return new ModelAndView("redirect:/employees","employees",employeeService.getAllEmployees());
-
     }
 
 

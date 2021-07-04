@@ -14,26 +14,36 @@ public class TasksService {
     TasksRepository tasksRepository;
 
     public List<Task> getAllTasks(){
-        return new ArrayList<>(tasksRepository.getAllTasks());
+        return new ArrayList(tasksRepository.findAll());
     }
 
     public void createTask(String taskDescription){
-        tasksRepository.createTask(taskDescription);
+        tasksRepository.save(new Task(taskDescription));
     }
 
     public Task getTaskById(int id){
         return tasksRepository.getTaskById(id);
     }
 
-    public void assing(int id){
-        tasksRepository.assign(id);
-    }
 
     public void deleteTask(Task task){
-        tasksRepository.deleteTask(task);
+        tasksRepository.delete(task);
     }
 
     public void addTask(Task task) {
-        tasksRepository.addTask(task);
+        tasksRepository.save(task);
+    }
+
+    public void deleteTaskById(Integer id){
+        tasksRepository.deleteTaskById(id);
+    }
+
+    public void assign(int id){
+        Task task = getTaskById(id);
+        if(task.getNumberOfLeftContractors()>1){
+            task.setNumberOfLeftContractors(task.getNumberOfLeftContractors() - 1);
+        }else{
+            deleteTaskById(id);
+        }
     }
 }

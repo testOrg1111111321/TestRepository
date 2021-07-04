@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title th:text="Hi + ${employee.name}"></title>
+    <link rel="stylesheet" th:href="@{/webjars/bootstrap/5.0.1/css/bootstrap.min.css}">
+    <script th:src="@{webjars/bootstrap/5.0.1/js/bootstrap.min.js}"></script>
+</head>
+<body>
+<div class="container">
+    <h1>Employee Details</h1>
+    <p>ID: <span th:text="${employee.id}"></span> </p>
+    <p>Name: <span th:text="${employee.name}"></span> </p>
+    <p>Surname: <span th:text="${employee.surname}"></span> </p>
+    <p>Username: <span th:text="${employee.user.username}"></span> </p>
+    <p>Password: <span th:text="${employee.user.password}"></span> </p>
+    <p>Email: <span th:text="${employee.user.email}"></span> </p>
+    <p>Task: <span th:if="${employee.task!=null}" th:text="${employee.task.description}"></span> <span th:if="${employee.task==null}">No assigned task</span></p>
+
+
+    <div class="row">
+        <a th:href="@{/employees}">
+            Go to employees list
+        </a>
+        <a th:href="@{/}">
+            Go to main page
+        </a>
+    </div>
+
+</div>
+</body>
+</html>

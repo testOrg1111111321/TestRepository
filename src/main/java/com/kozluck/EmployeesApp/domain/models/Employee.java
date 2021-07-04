@@ -1,25 +1,28 @@
 package com.kozluck.EmployeesApp.domain.models;
 
-import com.kozluck.EmployeesApp.domain.models.Task;
-import com.kozluck.EmployeesApp.domain.models.User;
+import org.hibernate.annotations.GenericGenerator;
 
-import javax.persistence.*;
-import javax.validation.constraints.NotEmpty;
+import javax.persistence.*;import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
+
 
 
 @Entity
 public class Employee {
     @Id
-    @GeneratedValue
+    @GeneratedValue(generator="system-uuid")
+    @GenericGenerator(name="system-uuid", strategy = "uuid")
     private int id;
 
     @NotEmpty
     @NotNull
+    @Size(min = 3, max = 30)
     private String name;
 
     @NotEmpty
     @NotNull
+    @Size(min = 3, max = 30)
     private String surname;
 
     @ManyToOne

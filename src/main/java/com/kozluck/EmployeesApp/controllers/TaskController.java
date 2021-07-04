@@ -42,7 +42,7 @@ public class TaskController {
     @RequestMapping(value = "/task/assign/{taskId}")
     public String assignTask(@PathVariable("taskId")int id, @ModelAttribute Employee employee){
         Task task = tasksService.getTaskById(id);
-        tasksService.assing(id);
+        tasksService.assign(id);
         employee.setTask(task);
         employeeService.updateEmployee(employee);
         return "redirect:/employees";

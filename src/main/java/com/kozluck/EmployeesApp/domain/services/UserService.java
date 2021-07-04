@@ -6,6 +6,8 @@ import com.kozluck.EmployeesApp.domain.utils.UserAlreadyExistException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Optional;
+
 
 @Service
 public class UserService {
@@ -28,6 +30,13 @@ public class UserService {
 
     public void deleteUser(User user){
         userRepository.delete(user);
+    }
+
+    public Optional<User> getUserByUsername(String username){
+        return userRepository.findByUsername(username);
+    }
+    public User findByUsernameIs(String username){
+        return userRepository.findByUsernameIs(username);
     }
 
     private boolean emailExist(String email){
