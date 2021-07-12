@@ -8,11 +8,9 @@ import com.kozluck.EmployeesApp.domain.utils.UserAlreadyExistException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import javax.persistence.Query;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
-import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -36,7 +34,7 @@ public class EmployeeService {
     }
 
     public void addEmployee(Employee employee) throws UserAlreadyExistException {
-        employeesRepository.save(employee);
+        employeesRepository.saveAndFlush(employee);
     }
     public void updateEmployee( Employee employee){
         customEmployeesRepository.updateEmployee(employee);
@@ -53,7 +51,7 @@ public class EmployeeService {
     public boolean isEmailExisting(String email) {
         Collection<Employee> employees = employeesRepository.findAll();
         employees.stream().filter(employee ->
-            employee.getUser().getEmail().equals(email)).collect(Collectors.toList());
+                employee.getUser().getEmail().equals(email)).collect(Collectors.toList());
 
         if(employees.size()<1)
             return true;

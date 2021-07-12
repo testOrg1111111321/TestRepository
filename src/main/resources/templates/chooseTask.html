@@ -11,7 +11,7 @@
   <table class="table">
     <thead>
     <tr>
-      <td>Task Description</td>
+      <td>Task title</td>
       <td>Number of Left Contactors</td>
       <td></td>
       <td></td>
@@ -20,15 +20,8 @@
     <tbody th:each="task : ${tasks}">
     <tr>
 
-      <form action="#" th:object="${employee}" th:action="@{'/task/assign/' + ${task.id}}" method="post">
-        <input type="hidden"  th:field="*{id}">
-        <input type="hidden"  th:field="*{name}">
-        <input type="hidden"  th:field="*{surname}">
-        <input type="hidden"  th:field="*{username}">
-        <input type="hidden"  th:field="*{password}">
-        <input type="hidden"  th:field="*{email}">
-
-        <td th:text="${task.description}"></td>
+      <form action="#" th:object="${employee}" th:action="@{'/'+${employee.id}+'/assign/' + ${task.id}}" method="post">
+        <td th:text="${task.title}"></td>
         <td th:text="${task.numberOfLeftContractors}"></td>
 
         <td><button type="submit" class="btn btn-primary">Choose</button></td>

@@ -8,24 +8,14 @@
 </head>
 <body>
 <div class="container">
-    <h1>Employee Details</h1>
-    <p>ID: <span th:text="${employee.id}"></span> </p>
-    <p>Name: <span th:text="${employee.name}"></span> </p>
-    <p>Surname: <span th:text="${employee.surname}"></span> </p>
-    <p>Username: <span th:text="${employee.user.username}"></span> </p>
-    <p>Password: <span th:text="${employee.user.password}"></span> </p>
-    <p>Email: <span th:text="${employee.user.email}"></span> </p>
-    <p>Task: <span th:if="${employee.task!=null}" th:text="${employee.task.description}"></span> <span th:if="${employee.task==null}">No assigned task</span></p>
-
-
-    <div class="row">
-        <a th:href="@{/employees}">
-            Go to employees list
-        </a>
-        <a th:href="@{/}">
-            Go to main page
-        </a>
+    <h1>Hi, <span th:text="${employee.name}"></span>!</h1>
+    <p>Your tasks:</p>
+    <div th:each=" task : ${tasks}">
+        <a th:text="${task.title}"></a>
     </div>
+
+
+
 
 </div>
 </body>

@@ -5,6 +5,7 @@ import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
@@ -15,15 +16,14 @@ import javax.validation.constraints.Size;
 public class User {
 
     @Id
-    @GeneratedValue(generator="system-uuid")
-    @GenericGenerator(name="system-uuid", strategy = "uuid")
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private int id;
 
     @NotNull
-    @Size(min = 5,max = 30)
+    @Size(min = 4,max = 30)
     private String username;
     @NotNull
-    @Size(min = 16,max = 30)
+    @Size(min = 4,max = 30)
     private String password;
     private boolean active = true;
     private String roles = "ROLE_USER";
@@ -75,5 +75,9 @@ public class User {
 
     public int getId() {
         return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 }

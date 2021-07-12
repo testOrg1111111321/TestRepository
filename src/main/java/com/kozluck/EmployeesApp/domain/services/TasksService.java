@@ -17,9 +17,6 @@ public class TasksService {
         return new ArrayList(tasksRepository.findAll());
     }
 
-    public void createTask(String taskDescription){
-        tasksRepository.save(new Task(taskDescription));
-    }
 
     public Task getTaskById(int id){
         return tasksRepository.getTaskById(id);
@@ -35,7 +32,15 @@ public class TasksService {
     }
 
     public void deleteTaskById(Integer id){
-        tasksRepository.deleteTaskById(id);
+        tasksRepository.delete(getTaskById(id));
+    }
+
+    public List<Task> getAll(){
+        return tasksRepository.findAll();
+    }
+
+    public void save(Task task){
+        tasksRepository.save(task);
     }
 
     public void assign(int id){

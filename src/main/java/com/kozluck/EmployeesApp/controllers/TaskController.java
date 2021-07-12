@@ -30,26 +30,29 @@ public class TaskController {
         return "tasks";
     }
     @RequestMapping("chooseTask/{id}")
-    public String chooseTask(@PathVariable("id") int id, Model model, Session session){
+    public String chooseTask(@PathVariable("id") int id, Model model){
         Employee employee = employeeService.getEmployeeById(id);
         model.addAttribute("employee", employee);
 
         List<Task> tasks =  tasksService.getAllTasks();
         model.addAttribute("tasks", tasks);
+
         return "chooseTask";
     }
 
-    @RequestMapping(value = "/task/assign/{taskId}")
-    public String assignTask(@PathVariable("taskId")int id, @ModelAttribute Employee employee){
-        Task task = tasksService.getTaskById(id);
-        tasksService.assign(id);
-        employee.setTask(task);
-        employeeService.updateEmployee(employee);
+    @RequestMapping(value = "/{employeeId}/assign/{taskId}")
+    public String assignTask(@PathVariable("taskId")Integer taskId, @PathVariable("employeeId")Integer employeeId){
+        Task task = tasksService.getTaskById(taskId);
+        Employee employee = employeeService.getEmployeeById(employeeId);
+        employee.addTask(task);
+        tasksService.assign(taskId);
+        employeeService.addEmployee(employee);
+
         return "redirect:/employees";
     }
 
     @RequestMapping("task/delete/{id}")
-    public String deleteJob(@PathVariable int id){
+    public String deleteTask(@PathVariable int id){
         Task task = tasksService.getTaskById(id);
         tasksService.deleteTask(task);
         return "redirect:/tasks";

@@ -2,8 +2,10 @@ package com.kozluck.EmployeesApp.controllers;
 
 import com.kozluck.EmployeesApp.domain.models.Employee;
 import com.kozluck.EmployeesApp.domain.models.MyUserDetails;
+import com.kozluck.EmployeesApp.domain.models.Task;
 import com.kozluck.EmployeesApp.domain.models.User;
 import com.kozluck.EmployeesApp.domain.services.EmployeeService;
+import com.kozluck.EmployeesApp.domain.services.TasksService;
 import com.kozluck.EmployeesApp.domain.services.UserService;
 import com.kozluck.EmployeesApp.domain.utils.UserAlreadyExistException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,6 +32,8 @@ public class EmployeeController{
     @Autowired
     UserService userService;
 
+    @Autowired
+    TasksService tasksService;
 
     @RequestMapping("/")
     public String mainView(Model model){
@@ -42,13 +46,12 @@ public class EmployeeController{
             MyUserDetails userDetails = (MyUserDetails)auth.getPrincipal();
             User user = userService.findByUsernameIs(userDetails.getUsername());
             Employee employee = employeeService.findByUser(user);
+            List<Task> tasks = tasksService.getAllTasks();
+            model.addAttribute("tasks",tasks);
             model.addAttribute("employee",employee);
             return "employeeView";
         }
-
-
     }
-
 
     @RequestMapping("/employees")
     public String getEmployees(Model model){
@@ -90,7 +93,6 @@ public class EmployeeController{
 
         }else{
             try{
-
                 userService.saveUser(employee.getUser());
                 employeeService.addEmployee(employee);
 

@@ -1,17 +1,23 @@
 package com.kozluck.EmployeesApp.domain.models;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
+import java.io.Serializable;
+import java.util.HashSet;
+import java.util.Objects;
+import java.util.Set;
 
-@Entity
-public class Task {
+@Entity(name = "tasks")
+public class Task{
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(name = "task_id")
     private int id;
+    private String title;
     private String description;
     private int numberOfLeftContractors;
+    @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private Set<Employee> employees = new HashSet<>();;
+
 
     public Task(){}
     public Task(String description) {
@@ -45,4 +51,21 @@ public class Task {
     public void setNumberOfLeftContractors(int numberOfLeftContractors) {
         this.numberOfLeftContractors = numberOfLeftContractors;
     }
+
+    public String getTitle() {
+        return title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
+    public Set<Employee> getEmployees() {
+        return employees;
+    }
+
+    public void setEmployees(Set<Employee> employees) {
+        this.employees = employees;
+    }
+
 }

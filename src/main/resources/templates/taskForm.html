@@ -11,6 +11,8 @@
   <h1>Add new Task to your system!</h1>
   <form th:action="@{/saveTask}" th:object="${task}" method="post">
     <div class="form-group">
+      <label for="titleInput">Title:</label>
+      <input type="text" class="form-control" id="titleInput" placeholder="Enter title" th:field="*{title}">
       <label for="nameInput">Description:</label>
       <input type="text" class="form-control" id="nameInput" placeholder="Enter description" th:field="*{description}">
       <label for="contractorInput">Number of Employees that you need to do this task:</label>
