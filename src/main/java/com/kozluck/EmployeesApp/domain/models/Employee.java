@@ -75,14 +75,6 @@ public class Employee{
         return tasks;
     }
 
-    public void addTask(Task task) {
-        this.tasks.add(task);
-        task.getEmployees().add(this);
-    }
-    public void removeTask(Task task){
-        this.tasks.remove(task);
-        task.getEmployees().remove(this);
-    }
 
     public User getUser() {
         return user;

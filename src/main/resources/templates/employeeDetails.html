@@ -8,14 +8,20 @@
 </head>
 <body>
   <div class="container">
-    <h1>Employee Details</h1>
-    <p>ID: <span th:text="${employee.id}"></span> </p>
-    <p>Name: <span th:text="${employee.name}"></span> </p>
-    <p>Surname: <span th:text="${employee.surname}"></span> </p>
-    <p>Username: <span th:text="${employee.user.username}"></span> </p>
-    <p>Password: <span th:text="${employee.user.password}"></span> </p>
-    <p>Email: <span th:text="${employee.user.email}"></span> </p>
+    <h1 class="display-1">Employee Details</h1>
+    <p class="lead">ID: <span th:text="${employee.id}"></span> </p>
+    <p class="lead">Name: <span th:text="${employee.name}"></span> </p>
+    <p class="lead">Surname: <span th:text="${employee.surname}"></span> </p>
+    <p class="lead">Username: <span th:text="${employee.user.username}"></span> </p>
+    <p class="lead">Password: <span th:text="${employee.user.password}"></span> </p>
+    <p class="lead">Email: <span th:text="${employee.user.email}"></span> </p>
 
+    <h5 class="display-4">Tasks:</h5>
+    <p class="lead" th:if="${employee.tasks==null}" th:text="This employee don't have assigned tasks"></p>
+    <div class="row" th:each="task : ${employee.tasks}">
+        <h6 class="display-6" th:text="${task.title}"></h6>
+        <p class="lead" th:text="${task.description}"></p>
+    </div>
 
       <div class="row">
           <a th:href="@{/employees}">

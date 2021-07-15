@@ -35,6 +35,7 @@ public class TaskController {
         model.addAttribute("employee", employee);
 
         List<Task> tasks =  tasksService.getAllTasks();
+        tasks.removeAll(employee.getTasks());
         model.addAttribute("tasks", tasks);
 
         return "chooseTask";
@@ -44,9 +45,9 @@ public class TaskController {
     public String assignTask(@PathVariable("taskId")Integer taskId, @PathVariable("employeeId")Integer employeeId){
         Task task = tasksService.getTaskById(taskId);
         Employee employee = employeeService.getEmployeeById(employeeId);
-        employee.addTask(task);
+        employeeService.addTask(employee,task);
         tasksService.assign(taskId);
-        employeeService.addEmployee(employee);
+        employeeService.updateEmployee(employee);
 
         return "redirect:/employees";
     }

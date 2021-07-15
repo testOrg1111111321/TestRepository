@@ -1,6 +1,7 @@
 package com.kozluck.EmployeesApp.domain.services;
 
 import com.kozluck.EmployeesApp.domain.models.Employee;
+import com.kozluck.EmployeesApp.domain.models.Task;
 import com.kozluck.EmployeesApp.domain.models.User;
 import com.kozluck.EmployeesApp.domain.repository.CustomEmployeesRepository;
 import com.kozluck.EmployeesApp.domain.repository.EmployeesRepository;
@@ -57,6 +58,15 @@ public class EmployeeService {
             return true;
         else
             return false;
+    }
+    public void addTask(Employee employee, Task task){
+        employee.getTasks().add(task);
+        task.getEmployees().add(employee);
+    }
+
+    public void removeTask(Employee employee, Task task){
+        employee.getTasks().remove(task);
+        task.getEmployees().remove(employee);
     }
 
     public Employee findByUser(User user){

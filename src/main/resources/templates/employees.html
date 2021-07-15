@@ -29,31 +29,7 @@
 
             <td>
                 <span th:if="${employee.tasks.size==0}">No assigned tasks <a th:href="${'chooseTask/' + employee.id}">Assign task</a></span>
-                <button th:if="${employee.tasks.size>0}" data-bs-toggle="modal" data-bs-target="#taskDetails" class="btn btn-primary">Assigned tasks</button>
-
-                <!-- Modal -->
-                <div class="modal fade" id="taskDetails" aria-hidden="true">
-                    <div class="modal-dialog">
-                        <div class="modal-content">
-                            <div class="modal-header">
-                                <h5 class="modal-title" th:text="${employee.name} + ' tasks.'"></h5>
-                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                            </div>
-                            <div class="modal-body">
-                                <div th:each="task : ${employee.tasks}">
-                                    <h6 th:text="${task.title}"></h6>
-                                    <p th:text="${task.description}"></p>
-                                </div>
-
-                            </div>
-                            <div class="modal-footer">
-                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                                <a th:href="${'chooseTask/' + employee.id}">Add more tasks</a>
-
-                            </div>
-                        </div>
-                    </div>
-                </div>
+                <span th:if="${employee.tasks.size>0}">Check assigned tasks in Details</span>
 
             </td>
             <td><a th:href="${'/employee/details/' + employee.id}">Details</a></td>
