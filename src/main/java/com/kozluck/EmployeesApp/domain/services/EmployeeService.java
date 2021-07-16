@@ -29,9 +29,10 @@ public class EmployeeService {
     public List<Employee> getAllEmployees(){
         return new ArrayList(employeesRepository.findAll());
     }
+
     public void deleteEmployee(Employee employee){
+        customEmployeesRepository.delete(employee);
         userService.deleteUser(employee.getUser());
-        employeesRepository.delete(employee);
     }
 
     public void addEmployee(Employee employee) throws UserAlreadyExistException {
@@ -64,7 +65,7 @@ public class EmployeeService {
         task.getEmployees().add(employee);
     }
 
-    public void removeTask(Employee employee, Task task){
+    private void removeTask(Employee employee, Task task){
         employee.getTasks().remove(task);
         task.getEmployees().remove(employee);
     }

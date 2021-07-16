@@ -27,12 +27,7 @@ public class Employee{
     @Size(min = 3, max = 30)
     private String surname;
 
-    @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    @JoinTable(
-            name = "employees_tasks",
-            joinColumns = @JoinColumn(name = "employee_id"),
-            inverseJoinColumns = @JoinColumn(name = "task_id")
-    )
+    @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "employees")
     private Set<Task> tasks = new HashSet<>();
 
     @OneToOne
@@ -46,6 +41,7 @@ public class Employee{
         this.surname = surname;
         this.tasks = tasks;
     }
+
 
     public int getId() {
         return id;
@@ -83,6 +79,4 @@ public class Employee{
     public void setUser(User user) {
         this.user = user;
     }
-
-
 }
