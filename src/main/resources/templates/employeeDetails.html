@@ -30,6 +30,7 @@
           <a th:href="@{/}">
               Go to main page
           </a>
+          <a th:href="${'chooseTask/' + employee.id}" th:if="${employee.tasks!=null}" th:text="Assign more tasks"></a>
       </div>
 
   </div>

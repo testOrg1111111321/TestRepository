@@ -28,8 +28,8 @@
             <td th:text="${employee.surname}"></td>
 
             <td>
-                <span th:if="${employee.tasks.size==0}">No assigned tasks <a th:href="${'chooseTask/' + employee.id}">Assign task</a></span>
-                <span th:if="${employee.tasks.size>0}">Check assigned tasks in Details</span>
+                <span th:if="${employee.tasks.size==0}">&#10060;<a th:href="${'chooseTask/' + employee.id}">Assign task</a></span>
+                <span th:if="${employee.tasks.size>0}">&#9989;</span>
 
             </td>
             <td><a th:href="${'/employee/details/' + employee.id}">Details</a></td>
