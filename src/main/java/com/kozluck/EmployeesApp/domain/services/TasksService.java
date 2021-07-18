@@ -4,6 +4,8 @@ import com.kozluck.EmployeesApp.domain.models.Task;
 import com.kozluck.EmployeesApp.domain.repository.TasksRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -28,7 +30,9 @@ public class TasksService {
     }
 
     public void addTask(Task task) {
-        tasksRepository.save(task);
+        if(LocalDateTime.now().isBefore(task.getConvertedDeadlineDateToLocalDateTime())){
+            tasksRepository.save(task);
+        }
     }
 
     public void deleteTaskById(Integer id){
@@ -37,10 +41,6 @@ public class TasksService {
 
     public List<Task> getAll(){
         return tasksRepository.findAll();
-    }
-
-    public void save(Task task){
-        tasksRepository.save(task);
     }
 
     public void assign(int id){

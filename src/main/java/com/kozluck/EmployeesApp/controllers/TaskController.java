@@ -10,6 +10,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Controller
@@ -66,8 +67,8 @@ public class TaskController {
     }
 
     @RequestMapping(value = "saveTask", method = RequestMethod.POST)
-    public String saveTask(@ModelAttribute Task task){
-        tasksService.addTask(task);
-        return "redirect:/tasks";
+    public String saveTask(@ModelAttribute Task task, Model model){
+            tasksService.addTask(task);
+            return "redirect:/tasks";
     }
 }

@@ -1,7 +1,13 @@
 package com.kozluck.EmployeesApp.domain.models;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
 import javax.persistence.*;
 import java.io.Serializable;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.ZoneId;
+import java.util.Date;
 import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
@@ -15,6 +21,8 @@ public class Task{
     private String title;
     private String description;
     private int numberOfLeftContractors;
+    @DateTimeFormat(pattern = "yyyy-MM-dd'T'HH:mm")
+    private Date deadlineDate;
     @ManyToMany(cascade = {CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH}, fetch = FetchType.LAZY)
     @JoinTable(
             name = "employees_tasks",
@@ -73,4 +81,17 @@ public class Task{
         this.employees = employees;
     }
 
+    public Date getDeadlineDate() {
+        return this.deadlineDate;
+    }
+    public LocalDateTime getConvertedDeadlineDateToLocalDateTime() {
+        return this.deadlineDate.toInstant()
+                .atZone(ZoneId.systemDefault())
+                .toLocalDateTime();
+    }
+
+
+    public void setDeadlineDate(Date deadlineDate) {
+        this.deadlineDate = deadlineDate;
+    }
 }

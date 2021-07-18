@@ -21,6 +21,7 @@
     <div class="row" th:each="task : ${employee.tasks}">
         <h6 class="display-6" th:text="${task.title}"></h6>
         <p class="lead" th:text="${task.description}"></p>
+        <p class="lead" th:text="${task.deadlineDate}"></p>
     </div>
 
       <div class="row">
@@ -30,7 +31,7 @@
           <a th:href="@{/}">
               Go to main page
           </a>
-          <a th:href="${'chooseTask/' + employee.id}" th:if="${employee.tasks!=null}" th:text="Assign more tasks"></a>
+          <a th:href="${'chooseTask/' + employee.id}">Assign task to this employee!</a>
       </div>
 
   </div>
