@@ -23,6 +23,7 @@ public class Task{
     private int numberOfLeftContractors;
     @DateTimeFormat(pattern = "yyyy-MM-dd'T'HH:mm")
     private Date deadlineDate;
+    
     @ManyToMany(cascade = {CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH}, fetch = FetchType.EAGER)
     @JoinTable(
             name = "employees_tasks",
