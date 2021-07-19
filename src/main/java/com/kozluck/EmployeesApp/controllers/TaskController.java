@@ -65,6 +65,18 @@ public class TaskController {
         employeeService.updateEmployee(employee);
         return "redirect:/employees";
     }
+    @RequestMapping(value = "/doneTask/{employeeId}/{taskId}")
+    public String doneTask(@PathVariable("employeeId")Integer emplyoeeId, @PathVariable("taskId")Integer taskId, Model model){
+        Task task = tasksService.getTaskById(taskId);
+        Employee employee = employeeService.getEmployeeById(emplyoeeId);
+
+        employeeService.removeTask(employee,task);
+        employee.setNumberOfDoneTasks(employee.getNumberOfDoneTasks() + 1);
+        employeeService.updateEmployee(employee);
+
+        model.addAttribute("employee",employee);
+        return "redirect:/";
+    }
 
     @RequestMapping("task/delete/{id}")
     public String deleteTask(@PathVariable int id) {

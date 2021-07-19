@@ -50,8 +50,6 @@ public class EmployeeController {
             MyUserDetails userDetails = (MyUserDetails) auth.getPrincipal();
             User user = userService.findByUsernameIs(userDetails.getUsername());
             Employee employee = employeeService.findByUser(user);
-            List<Task> tasks = tasksService.getAllTasks();
-            model.addAttribute("tasks", tasks);
             model.addAttribute("employee", employee);
             return "employeeView";
         }

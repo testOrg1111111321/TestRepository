@@ -2,16 +2,21 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title th:text="Hi + ${employee.name}"></title>
+    <title th:text="Hi +' ' + ${employee.name}"></title>
     <link rel="stylesheet" th:href="@{/webjars/bootstrap/5.0.1/css/bootstrap.min.css}">
     <script th:src="@{webjars/bootstrap/5.0.1/js/bootstrap.min.js}"></script>
 </head>
 <body>
 <div class="container">
-    <h1>Hi, <span th:text="${employee.name}"></span>!</h1>
-    <p>Your tasks:</p>
-    <div th:each=" task : ${tasks}">
-        <a th:text="${task.title}"></a>
+    <h1 class="display-1">Hi, <span th:text="${employee.name}"></span>!</h1>
+    <p class="lead" th:text="'Number of done tasks:' + ${employee.numberOfDoneTasks}"></p>
+    <p class="lead" th:text="'Number of not done tasks:' + ${employee.numberOfNotDoneTasks}"></p>
+    <h3 class="display-3">Your tasks:</h3>
+    <div th:each=" task : ${employee.tasks}">
+        <h6 class="display-6" th:text="${task.title}"></h6>
+        <p class="lead" th:text="${task.description}"></p>
+        <p class="lead" th:text="${'Deadline:' + task.deadlineDate}"></p>
+        <a th:href="${'/doneTask/' + employee.id + '/' + task.id}">Wykonane</a>
     </div>
 
 
