@@ -3,17 +3,14 @@ package com.kozluck.EmployeesApp.domain.models;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
-import java.io.Serializable;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.util.Date;
 import java.util.HashSet;
-import java.util.Objects;
 import java.util.Set;
 
 @Entity(name = "tasks")
-public class Task{
+public class Task {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "task_id")
@@ -23,20 +20,23 @@ public class Task{
     private int numberOfLeftContractors;
     @DateTimeFormat(pattern = "yyyy-MM-dd'T'HH:mm")
     private Date deadlineDate;
-    
+
     @ManyToMany(cascade = {CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH}, fetch = FetchType.EAGER)
     @JoinTable(
             name = "employees_tasks",
             joinColumns = @JoinColumn(name = "task_id"),
             inverseJoinColumns = @JoinColumn(name = "employee_id")
     )
-    private Set<Employee> employees = new HashSet<>();;
+    private Set<Employee> employees = new HashSet<>();
 
 
-    public Task(){}
+    public Task() {
+    }
+
     public Task(String description) {
         this.description = description;
     }
+
     public Task(String description, int numberOfLeftContractors) {
         this.description = description;
         this.numberOfLeftContractors = numberOfLeftContractors;
@@ -85,12 +85,12 @@ public class Task{
     public Date getDeadlineDate() {
         return this.deadlineDate;
     }
+
     public LocalDateTime getConvertedDeadlineDateToLocalDateTime() {
         return this.deadlineDate.toInstant()
                 .atZone(ZoneId.systemDefault())
                 .toLocalDateTime();
     }
-
 
     public void setDeadlineDate(Date deadlineDate) {
         this.deadlineDate = deadlineDate;

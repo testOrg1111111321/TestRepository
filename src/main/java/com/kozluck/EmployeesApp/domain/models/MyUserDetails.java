@@ -12,12 +12,12 @@ import java.util.stream.Collectors;
 public class MyUserDetails implements UserDetails {
 
 
-    private  String username;
-    private  String password;
+    private final String username;
+    private final String password;
     private boolean active;
     private List<GrantedAuthority> authorities;
 
-    public MyUserDetails(User user){
+    public MyUserDetails(User user) {
         this.username = user.getUsername();
         this.password = user.getPassword();
         this.active = user.isActive();
@@ -25,7 +25,8 @@ public class MyUserDetails implements UserDetails {
                 .map(SimpleGrantedAuthority::new)
                 .collect(Collectors.toList());
     }
-    public MyUserDetails(String username, String password){
+
+    public MyUserDetails(String username, String password) {
         this.username = username;
         this.password = password;
     }

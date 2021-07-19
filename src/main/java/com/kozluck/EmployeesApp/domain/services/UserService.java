@@ -15,14 +15,15 @@ public class UserService {
 
 
     UserRepository userRepository;
+
     @Autowired
-    public UserService(UserRepository userRepository){
+    public UserService(UserRepository userRepository) {
         this.userRepository = userRepository;
     }
 
 
     public void saveUser(User user) throws UserAlreadyExistException {
-        if(emailExist(user.getEmail())){
+        if (emailExist(user.getEmail())) {
             throw new UserAlreadyExistException("There is an account with that email address: " + user.getEmail());
         }
 
@@ -30,18 +31,19 @@ public class UserService {
     }
 
     @Transactional
-    public void deleteUser(User user){
+    public void deleteUser(User user) {
         userRepository.delete(user);
     }
 
-    public Optional<User> getUserByUsername(String username){
+    public Optional<User> getUserByUsername(String username) {
         return userRepository.findByUsername(username);
     }
-    public User findByUsernameIs(String username){
+
+    public User findByUsernameIs(String username) {
         return userRepository.findByUsernameIs(username);
     }
 
-    private boolean emailExist(String email){
+    private boolean emailExist(String email) {
         return userRepository.findByEmail(email) != null;
     }
 

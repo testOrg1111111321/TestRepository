@@ -7,12 +7,10 @@ import com.kozluck.EmployeesApp.domain.repository.CustomEmployeesRepository;
 import com.kozluck.EmployeesApp.domain.repository.EmployeesRepository;
 import com.kozluck.EmployeesApp.domain.repository.TasksRepository;
 import com.kozluck.EmployeesApp.domain.utils.UserAlreadyExistException;
-import org.hibernate.Hibernate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
-import javax.transaction.Transactional;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Collection;
@@ -36,7 +34,7 @@ public class EmployeeService {
     private UserService userService;
 
     @Scheduled(fixedDelay = 60000)
-    public void checkTasks(){
+    public void checkTasks() {
         List<Employee> employees = employeesRepository.findAll();
 
         employees.forEach(employee -> {
@@ -44,11 +42,11 @@ public class EmployeeService {
             tasks.forEach(task -> {
                 LocalDateTime taskTime = task.getConvertedDeadlineDateToLocalDateTime();
                 LocalDateTime now = LocalDateTime.now();
-                if(taskTime.isBefore(now)){
+                if (taskTime.isBefore(now)) {
                     Employee employee1 = getEmployeeById(employee.getId());
                     Task task1 = tasksRepository.getTaskById(task.getId());
 
-                    removeTask(employee1,task1);
+                    removeTask(employee1, task1);
                     addNotDoneTask(employee);
                     customEmployeesRepository.updateEmployee(employee);
                 }
@@ -56,11 +54,11 @@ public class EmployeeService {
         });
     }
 
-    public List<Employee> getAllEmployees(){
+    public List<Employee> getAllEmployees() {
         return new ArrayList(employeesRepository.findAll());
     }
 
-    public void deleteEmployee(Employee employee){
+    public void deleteEmployee(Employee employee) {
         customEmployeesRepository.delete(employee);
         userService.deleteUser(employee.getUser());
     }
@@ -68,7 +66,8 @@ public class EmployeeService {
     public void addEmployee(Employee employee) throws UserAlreadyExistException {
         employeesRepository.saveAndFlush(employee);
     }
-    public void updateEmployee( Employee employee){
+
+    public void updateEmployee(Employee employee) {
         customEmployeesRepository.updateEmployee(employee);
     }
 
@@ -85,26 +84,24 @@ public class EmployeeService {
         employees.stream().filter(employee ->
                 employee.getUser().getEmail().equals(email)).collect(Collectors.toList());
 
-        if(employees.size()<1)
-            return true;
-        else
-            return false;
+        return employees.size() < 1;
     }
-    public void addTask(Employee employee, Task task){
+
+    public void addTask(Employee employee, Task task) {
         employee.getTasks().add(task);
         task.getEmployees().add(employee);
     }
 
-    public void addNotDoneTask(Employee employee){
+    public void addNotDoneTask(Employee employee) {
         employee.setNumberOfNotDoneTasks(employee.getNumberOfNotDoneTasks() + 1);
     }
 
-    private void removeTask(Employee employee, Task task){
+    public void removeTask(Employee employee, Task task) {
         employee.getTasks().remove(task);
         task.getEmployees().remove(employee);
     }
 
-    public Employee findByUser(User user){
+    public Employee findByUser(User user) {
         return employeesRepository.findByUser(user);
     }
 }

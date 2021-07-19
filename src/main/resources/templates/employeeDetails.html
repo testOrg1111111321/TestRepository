@@ -22,6 +22,7 @@
         <h6 class="display-6" th:text="${task.title}"></h6>
         <p class="lead" th:text="${task.description}"></p>
         <p class="lead" th:text="${task.deadlineDate}"></p>
+        <td><a th:href="${'/' + employee.id + '/unassign/' + task.id}">Unassign this task</a></td>
     </div>
 
       <div class="row">

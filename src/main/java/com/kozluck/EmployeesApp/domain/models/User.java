@@ -1,7 +1,6 @@
 package com.kozluck.EmployeesApp.domain.models;
 
 import com.kozluck.EmployeesApp.domain.utils.ValidEmail;
-import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -20,10 +19,10 @@ public class User {
     private int id;
 
     @NotNull
-    @Size(min = 4,max = 30)
+    @Size(min = 4, max = 30)
     private String username;
     @NotNull
-    @Size(min = 4,max = 30)
+    @Size(min = 4, max = 30)
     private String password;
     private boolean active = true;
     private String roles = "ROLE_USER";

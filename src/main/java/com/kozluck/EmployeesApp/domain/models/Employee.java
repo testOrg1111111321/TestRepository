@@ -1,16 +1,15 @@
 package com.kozluck.EmployeesApp.domain.models;
 
-import org.hibernate.annotations.GenericGenerator;
-
-import javax.persistence.*;import javax.validation.constraints.NotEmpty;
+import javax.persistence.*;
+import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
-import java.io.Serializable;
-import java.util.*;
+import java.util.HashSet;
+import java.util.Set;
 
 
 @Entity(name = "employees")
-public class Employee{
+public class Employee {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -38,9 +37,10 @@ public class Employee{
     private User user;
 
 
-    public Employee() {}
+    public Employee() {
+    }
 
-    public Employee(String name, String surname, Set<Task> tasks){
+    public Employee(String name, String surname, Set<Task> tasks) {
         this.name = name;
         this.surname = surname;
         this.tasks = tasks;
@@ -71,7 +71,7 @@ public class Employee{
         this.surname = surname;
     }
 
-    public Set<Task> getTasks(){
+    public Set<Task> getTasks() {
         return tasks;
     }
 

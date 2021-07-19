@@ -18,7 +18,7 @@ public class EmailValidator
     }
 
     @Override
-    public boolean isValid(String email, ConstraintValidatorContext context){
+    public boolean isValid(String email, ConstraintValidatorContext context) {
         return (validateEmail(email));
     }
 
