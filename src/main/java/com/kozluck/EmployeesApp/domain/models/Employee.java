@@ -27,7 +27,11 @@ public class Employee{
     @Size(min = 3, max = 30)
     private String surname;
 
-    @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "employees")
+    private int numberOfNotDoneTasks;
+
+    private int numberOfDoneTasks;
+
+    @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, mappedBy = "employees")
     private Set<Task> tasks = new HashSet<>();
 
     @OneToOne
@@ -78,5 +82,21 @@ public class Employee{
 
     public void setUser(User user) {
         this.user = user;
+    }
+
+    public int getNumberOfNotDoneTasks() {
+        return numberOfNotDoneTasks;
+    }
+
+    public void setNumberOfNotDoneTasks(int numberOfNotDoneTasks) {
+        this.numberOfNotDoneTasks = numberOfNotDoneTasks;
+    }
+
+    public int getNumberOfDoneTasks() {
+        return numberOfDoneTasks;
+    }
+
+    public void setNumberOfDoneTasks(int numberOfDoneTasks) {
+        this.numberOfDoneTasks = numberOfDoneTasks;
     }
 }

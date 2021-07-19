@@ -1,14 +1,14 @@
 <!DOCTYPE HTML>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-  <title>Jobs</title>
+  <title>Tasks</title>
   <meta http-equiv="Content-Type" content="text/html" charset="UTF-8"/>
   <link rel="stylesheet" th:href="@{/webjars/bootstrap/5.0.1/css/bootstrap.min.css}">
-  <script th:src="@{webjars/bootstrap/5.0.1/js/bootstrap.min.js}"></script>
 </head>
 <body>
 <div class="container">
   <h1>Add new Task to your system!</h1>
+  <p th:if="${dateError!=null}" th:text="${dateError}"></p>
   <form th:action="@{/saveTask}" th:object="${task}" method="post">
     <div class="form-group">
       <label for="titleInput">Title:</label>
@@ -17,12 +17,13 @@
       <input type="text" class="form-control" id="nameInput" placeholder="Enter description" th:field="*{description}">
       <label for="contractorInput">Number of Employees that you need to do this task:</label>
       <input type="number" class="form-control" id="contractorInput" placeholder="Enter number of Employees" th:field="*{numberOfLeftContractors}">
+      <label for="dateInput">Task deadline:</label>
+      <input type="datetime-local" class="form-control" id="dateInput" th:field="*{deadlineDate}">
     </div>
     <div class="row">
       <button type="submit" class="btn btn-primary">Submit</button>
     </div>
   </form>
-
 </div>
 </body>
 </html>
