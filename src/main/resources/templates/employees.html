@@ -7,45 +7,57 @@
     <script th:src="@{webjars/bootstrap/5.0.1/js/bootstrap.min.js}"></script>
 </head>
 <body>
-<div class="container">
-    <table class="table">
-        <thead>
-        <tr>
-            <td>ID</td>
-            <td>Name</td>
-            <td>Surname</td>
-            <td>Tasks</td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-        </tr>
-        </thead>
-        <tbody th:each="employee : ${employees}">
-        <tr>
-            <td th:text="${employee.id}"></td>
-            <td th:text="${employee.name}"></td>
-            <td th:text="${employee.surname}"></td>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+        <span class="navbar-brand">Employees App</span>
+        <div class="collapse navbar-collapse" id="navbarText">
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item active">
+                    <a class="nav-link active" th:href="@{/employees}">Employees List</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" th:href="@{/tasks}">Task List</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" th:href="@{/employeeForm}">Add new employee</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" th:href="@{/taskForm}">Add new task</a>
+                </li>
+            </ul>
+        </div>
+    </nav>
 
-            <td>
-                <span th:if="${employee.tasks.size==0}">&#10060;<a th:href="${'chooseTask/' + employee.id}">Assign task</a></span>
-                <span th:if="${employee.tasks.size>0}">&#9989;</span>
+    <div class="container">
+        <table class="table">
+            <thead>
+            <tr>
+                <td>ID</td>
+                <td>Name</td>
+                <td>Surname</td>
+                <td>Tasks</td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+            </tr>
+            </thead>
+            <tbody th:each="employee : ${employees}">
+            <tr>
+                <td th:text="${employee.id}"></td>
+                <td th:text="${employee.name}"></td>
+                <td th:text="${employee.surname}"></td>
 
-            </td>
-            <td><a th:href="${'/employee/details/' + employee.id}">Details</a></td>
-            <td><a th:href="${'/employee/delete/'+employee.id}">Delete</a></td>
+                <td>
+                    <span th:if="${employee.tasks.size==0}">&#10060;<a th:href="${'chooseTask/' + employee.id}">Assign task</a></span>
+                    <span th:if="${employee.tasks.size>0}">&#9989;</span>
 
-        </tr>
-        </tbody>
-    </table>
-    <div class="row">
-        <a th:href="@{/employeeForm}">
-            Add new employee
-        </a>
-        <a th:href="@{/}">
-            Go to main page
-        </a>
+                </td>
+                <td><a th:href="${'/employee/details/' + employee.id}">Details</a></td>
+                <td><a th:href="${'/employee/delete/'+employee.id}">Delete</a></td>
+
+            </tr>
+            </tbody>
+        </table>
     </div>
-</div>
 </body>
 </html>

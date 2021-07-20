@@ -23,7 +23,7 @@ public class TaskController {
     @Autowired
     EmployeeService employeeService;
 
-    @RequestMapping("tasks")
+    @RequestMapping("/tasks")
     public String getTasks(Model model) {
         List<Task> tasks = tasksService.getAllTasks();
         model.addAttribute("tasks", tasks);

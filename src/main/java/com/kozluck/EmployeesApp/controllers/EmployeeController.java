@@ -21,7 +21,6 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
-
 import javax.validation.Valid;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -44,14 +43,14 @@ public class EmployeeController {
         List<? extends GrantedAuthority> userAuth = SecurityContextHolder.getContext().getAuthentication().getAuthorities().stream().collect(Collectors.toList());
 
         if (userAuth.contains(new SimpleGrantedAuthority("ROLE_ADMIN"))) {
-            return "mainView";
+            return "redirect:/employees";
         } else {
             Authentication auth = SecurityContextHolder.getContext().getAuthentication();
             MyUserDetails userDetails = (MyUserDetails) auth.getPrincipal();
             User user = userService.findByUsernameIs(userDetails.getUsername());
             Employee employee = employeeService.findByUser(user);
             model.addAttribute("employee", employee);
-            return "employeeView";
+            return "redirect:/employeeView";
         }
     }
 

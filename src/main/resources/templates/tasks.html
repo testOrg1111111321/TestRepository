@@ -7,31 +7,43 @@
   <script th:src="@{webjars/bootstrap/5.0.1/js/bootstrap.min.js}"></script>
 </head>
 <body>
-<div class="container">
-  <table class="table">
-    <thead>
-    <tr>
-      <td>Task title</td>
-      <td>Number of Left Contactors</td>
-    </tr>
-    </thead>
-    <tbody th:each="task : ${tasks}">
-    <tr>
-      <td th:text="${task.title}"></td>
-      <td th:text="${task.numberOfLeftContractors}"></td>
-      <td><a th:href="${'/task/delete/'+task.id}">Delete</a></td>
-    </tr>
-    </tbody>
-  </table>
-  <div class="row">
-    <a th:href="@{/taskForm}">
-      Add new Task
-    </a>
-    <a th:href="@{/}">
-      Go to main page
-    </a>
-  </div>
-</div>
+  <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+    <span class="navbar-brand">Employees App</span>
+    <div class="collapse navbar-collapse" id="navbarText">
+      <ul class="navbar-nav mr-auto">
+        <li class="nav-items">
+          <a class="nav-link" th:href="@{/employees}">Employees List</a>
+        </li>
+        <li class="nav-item active">
+          <a class="nav-link active" th:href="@{/tasks}">Task List</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" th:href="@{/employeeForm}">Add new employee</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" th:href="@{/taskForm}">Add new task</a>
+        </li>
+      </ul>
+    </div>
+  </nav>
 
+  <div class="container">
+    <table class="table">
+      <thead>
+      <tr>
+        <td>Task title</td>
+        <td>Number of Left Contactors</td>
+      </tr>
+      </thead>
+      <tbody th:each="task : ${tasks}">
+      <tr>
+        <td th:text="${task.title}"></td>
+        <td th:text="${task.numberOfLeftContractors}"></td>
+        <td><a th:href="${'/task/delete/'+task.id}">Delete</a></td>
+      </tr>
+      </tbody>
+    </table>
+    </div>
+  </div>
 </body>
 </html>
