@@ -3,6 +3,7 @@ package com.kozluck.EmployeesApp.controllers;
 import com.kozluck.EmployeesApp.domain.models.Employee;
 import com.kozluck.EmployeesApp.domain.models.Task;
 import com.kozluck.EmployeesApp.domain.services.EmployeeService;
+import com.kozluck.EmployeesApp.domain.services.MailService;
 import com.kozluck.EmployeesApp.domain.services.TasksService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -22,6 +23,9 @@ public class TaskController {
 
     @Autowired
     EmployeeService employeeService;
+
+    @Autowired
+    MailService mailService;
 
     @RequestMapping("/tasks")
     public String getTasks(Model model) {
@@ -50,6 +54,7 @@ public class TaskController {
         tasksService.assign(taskId);
         employeeService.updateEmployee(employee);
 
+        mailService.sendMail(employee.getUser().getId(),"New assigned task.","Hi " + employee.getName() + ".\nYou have a new task to do.");
         return "redirect:/employees";
     }
 
@@ -57,12 +62,12 @@ public class TaskController {
     public String unAssignTask(@PathVariable("employeeId")Integer employeeId, @PathVariable("taskId") Integer taskId){
         Task task = tasksService.getTaskById(taskId);
         Employee employee = employeeService.getEmployeeById(employeeId);
-
         employeeService.removeTask(employee,task);
         task.setNumberOfLeftContractors(task.getNumberOfLeftContractors() + 1);
-
         tasksService.update(task);
         employeeService.updateEmployee(employee);
+
+        mailService.sendMail(employee.getUser().getId(),"New canceled task.","Hi " + employee.getName() + ".\nOne of yours tasks was cancelled.");
         return "redirect:/employees";
     }
     @RequestMapping(value = "/doneTask/{employeeId}/{taskId}")

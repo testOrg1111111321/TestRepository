@@ -7,6 +7,7 @@ import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.util.Date;
 import java.util.HashSet;
+import java.util.Objects;
 import java.util.Set;
 
 @Entity(name = "tasks")
@@ -95,4 +96,13 @@ public class Task {
     public void setDeadlineDate(Date deadlineDate) {
         this.deadlineDate = deadlineDate;
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Task task = (Task) o;
+        return id == task.id && numberOfLeftContractors == task.numberOfLeftContractors && Objects.equals(title, task.title) && Objects.equals(description, task.description);
+    }
+
 }

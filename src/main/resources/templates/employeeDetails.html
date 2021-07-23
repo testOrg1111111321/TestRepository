@@ -44,6 +44,7 @@
         <p class="lead" th:text="${task.deadlineDate}"></p>
         <td><a th:href="${'/' + employee.id + '/unassign/' + task.id}">Unassign this task</a></td>
     </div>
+      <a th:href="${'/chooseTask/' + employee.id}">Assign new task</a>
   </div>
 </body>
 </html>

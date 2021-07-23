@@ -25,7 +25,7 @@ public class EmployeeService {
     private EmployeesRepository employeesRepository;
 
     @Autowired
-    private TasksRepository tasksRepository;
+    private TasksService tasksService;
 
     @Autowired
     private CustomEmployeesRepository customEmployeesRepository;
@@ -33,24 +33,37 @@ public class EmployeeService {
     @Autowired
     private UserService userService;
 
+    @Autowired
+    private MailService mailService;
+
     @Scheduled(fixedDelay = 60000)
     public void checkTasks() {
+
         List<Employee> employees = employeesRepository.findAll();
+        List<Task> tasks = tasksService.findAll();
+        LocalDateTime now = LocalDateTime.now();
 
         employees.forEach(employee -> {
-            Set<Task> tasks = employee.getTasks();
-            tasks.forEach(task -> {
+            employee.getTasks().forEach(task -> {
                 LocalDateTime taskTime = task.getConvertedDeadlineDateToLocalDateTime();
-                LocalDateTime now = LocalDateTime.now();
                 if (taskTime.isBefore(now)) {
                     Employee employee1 = getEmployeeById(employee.getId());
-                    Task task1 = tasksRepository.getTaskById(task.getId());
+                    Task task1 = tasksService.getTaskById(task.getId());
 
+                    removeTask(employee1,task1);
                     removeTask(employee1, task1);
                     addNotDoneTask(employee);
                     customEmployeesRepository.updateEmployee(employee);
+                    tasksService.update(task);
+                    mailService.sendMail(employee.getUser().getId(),"Task not completed.","Hi " + employee.getName() + ".\nYour task was deleted because it was not completed.");
                 }
             });
+        });
+
+        tasks.forEach(task -> {
+            if(task.getEmployees().size()==0 && task.getConvertedDeadlineDateToLocalDateTime().isBefore(now)){
+                tasksService.deleteTask(task);
+            }
         });
     }
 

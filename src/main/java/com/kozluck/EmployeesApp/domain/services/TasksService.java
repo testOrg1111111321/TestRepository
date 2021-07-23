@@ -24,7 +24,7 @@ public class TasksService {
     }
 
 
-    public Task getTaskById(int id) {
+    public Task getTaskById(Integer id) {
         return tasksRepository.getTaskById(id);
     }
 
@@ -59,5 +59,10 @@ public class TasksService {
     public void update(Task task){
         customTasksRepository.updateTask(task);
     }
+
+    public List<Task> findAll(){
+        return tasksRepository.findAll();
+    }
+
 
 }

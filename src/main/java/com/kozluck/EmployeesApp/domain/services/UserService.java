@@ -43,6 +43,10 @@ public class UserService {
         return userRepository.findByUsernameIs(username);
     }
 
+    public User findOneById(Integer Id){
+        return userRepository.findOneById(Id);
+    }
+
     private boolean emailExist(String email) {
         return userRepository.findByEmail(email) != null;
     }
