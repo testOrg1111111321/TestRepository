@@ -2,7 +2,6 @@ package com.kozluck.EmployeesApp.controllers;
 
 import com.kozluck.EmployeesApp.domain.models.Employee;
 import com.kozluck.EmployeesApp.domain.models.MyUserDetails;
-import com.kozluck.EmployeesApp.domain.models.Task;
 import com.kozluck.EmployeesApp.domain.models.User;
 import com.kozluck.EmployeesApp.domain.services.EmployeeService;
 import com.kozluck.EmployeesApp.domain.services.TasksService;
@@ -21,6 +20,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
+
 import javax.validation.Valid;
 import java.util.List;
 import java.util.stream.Collectors;

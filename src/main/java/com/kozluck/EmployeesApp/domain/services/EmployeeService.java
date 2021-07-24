@@ -5,7 +5,6 @@ import com.kozluck.EmployeesApp.domain.models.Task;
 import com.kozluck.EmployeesApp.domain.models.User;
 import com.kozluck.EmployeesApp.domain.repository.CustomEmployeesRepository;
 import com.kozluck.EmployeesApp.domain.repository.EmployeesRepository;
-import com.kozluck.EmployeesApp.domain.repository.TasksRepository;
 import com.kozluck.EmployeesApp.domain.utils.UserAlreadyExistException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Scheduled;
@@ -15,7 +14,6 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
-import java.util.Set;
 import java.util.stream.Collectors;
 
 @Service
