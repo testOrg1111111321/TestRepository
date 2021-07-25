@@ -1,0 +1,50 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Cost Form</title>
+    <meta http-equiv="Content-Type" content="text/html" charset="UTF-8"/>
+    <link rel="stylesheet" th:href="@{/webjars/bootstrap/5.0.1/css/bootstrap.min.css}">
+    <script th:src="@{webjars/bootstrap/5.0.1/js/bootstrap.min.js}"></script>
+</head>
+<body>
+    <div class="container">
+        <h1>Add new cost</h1>
+        <form th:action="@{/saveCost}" th:object="${cost}" method="post">
+            <div class="form-group">
+                <label for="amountInput">Amount:</label>
+                <input type="number" class="form-control" id="amountInput" placeholder="Enter amount of your income" th:field="*{amount}" required="required">
+            </div>
+
+            <div class="form-group">
+                <label for="sourceInput">Source:</label>
+                <input type="text" class="form-control" id="sourceInput" placeholder="Source of your income" th:field="*{source}" required="required">
+            </div>
+            <div class="form-group">
+                <label for="surnameInput">Year:</label>
+                <input type="text" class="form-control" id="surnameInput" placeholder="Enter year of your income:" th:field="*{year}" required="required">
+            </div>
+            <div class="form-group">
+                <label for="monthInput">Month:</label>
+                <input list="monthList" class="form-select" id="monthInput" placeholder="Choose month" th:field="*{month}" required="required">
+                <datalist id="monthList">
+                    <option value="January">
+                    <option value="February">
+                    <option value="March">
+                    <option value="April">
+                    <option value="May">
+                    <option value="June">
+                    <option value="July">
+                    <option value="August">
+                    <option value="September">
+                    <option value="October">
+                    <option value="November">
+                    <option value="December">
+                </datalist>
+            </div>
+            <div class="row">
+                <button type="submit" class="btn btn-primary">Submit</button>
+            </div>
+        </form>
+    </div>
+</body>
+</html>

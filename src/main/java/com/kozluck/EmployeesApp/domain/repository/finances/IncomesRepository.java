@@ -1,7 +1,6 @@
-package com.kozluck.EmployeesApp.domain.repository;
+package com.kozluck.EmployeesApp.domain.repository.finances;
 
-import com.kozluck.EmployeesApp.domain.models.Finances.Cost;
-import com.kozluck.EmployeesApp.domain.models.Finances.Income;
+import com.kozluck.EmployeesApp.domain.models.finances.Income;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 

@@ -1,4 +1,4 @@
-package com.kozluck.EmployeesApp.domain.models.Finances;
+package com.kozluck.EmployeesApp.domain.models.finances;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -11,8 +11,10 @@ public class Cost {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private int id;
     private double amount;
-    private String from;
+    private String source;
     private String month;
+    private int year;
+
 
     public Cost() {
     }
@@ -25,12 +27,12 @@ public class Cost {
         this.amount = amount;
     }
 
-    public String getFrom() {
-        return from;
+    public String getSource() {
+        return source;
     }
 
-    public void setFrom(String from) {
-        this.from = from;
+    public void setSource(String source) {
+        this.source = source;
     }
 
     public String getMonth() {
@@ -39,6 +41,14 @@ public class Cost {
 
     public void setMonth(String month) {
         this.month = month;
+    }
+
+    public int getYear() {
+        return year;
+    }
+
+    public void setYear(int year) {
+        this.year = year;
     }
 
     public int getId() {

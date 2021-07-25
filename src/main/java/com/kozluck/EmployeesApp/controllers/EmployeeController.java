@@ -83,7 +83,8 @@ public class EmployeeController {
     }
 
     @PostMapping(value = "/saveEmployee")
-    public ModelAndView saveEmployee(@Valid @ModelAttribute("employee") Employee employee, BindingResult errors) {
+    public ModelAndView saveEmployee(@Valid @ModelAttribute("employee") Employee employee,
+                                     BindingResult errors) {
 
         if (errors.hasErrors()) {
             errors.getAllErrors().forEach(error -> {

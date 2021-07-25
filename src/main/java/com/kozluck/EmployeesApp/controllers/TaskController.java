@@ -47,7 +47,8 @@ public class TaskController {
     }
 
     @RequestMapping(value = "/{employeeId}/assign/{taskId}")
-    public String assignTask(@PathVariable("taskId") Integer taskId, @PathVariable("employeeId") Integer employeeId) {
+    public String assignTask(@PathVariable("taskId") Integer taskId,
+                             @PathVariable("employeeId") Integer employeeId) {
         Task task = tasksService.getTaskById(taskId);
         Employee employee = employeeService.getEmployeeById(employeeId);
         employeeService.addTask(employee, task);
@@ -59,7 +60,8 @@ public class TaskController {
     }
 
     @RequestMapping(value = "/{employeeId}/unassign/{taskId}")
-    public String unAssignTask(@PathVariable("employeeId")Integer employeeId, @PathVariable("taskId") Integer taskId){
+    public String unAssignTask(@PathVariable("employeeId")Integer employeeId,
+                               @PathVariable("taskId") Integer taskId){
         Task task = tasksService.getTaskById(taskId);
         Employee employee = employeeService.getEmployeeById(employeeId);
         employeeService.removeTask(employee,task);
@@ -71,7 +73,9 @@ public class TaskController {
         return "redirect:/employees";
     }
     @RequestMapping(value = "/doneTask/{employeeId}/{taskId}")
-    public String doneTask(@PathVariable("employeeId")Integer emplyoeeId, @PathVariable("taskId")Integer taskId, Model model){
+    public String doneTask(@PathVariable("employeeId")Integer emplyoeeId,
+                           @PathVariable("taskId")Integer taskId,
+                           Model model){
         Task task = tasksService.getTaskById(taskId);
         Employee employee = employeeService.getEmployeeById(emplyoeeId);
 
