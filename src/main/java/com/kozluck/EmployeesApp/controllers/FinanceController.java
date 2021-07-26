@@ -41,6 +41,31 @@ public class FinanceController {
         return "finances";
     }
 
+    @RequestMapping("/costs")
+    public String costsList(Model model){
+        List<Cost> costs = costsService.findAll();
+        model.addAttribute("costs",costs);
+        return "costs";
+    }
+
+    @RequestMapping("/incomes")
+    public String incomesList(Model model){
+        List<Income> incomes = incomesService.findAll();
+        model.addAttribute("incomes",incomes);
+        return "incomes";
+    }
+
+    @RequestMapping("/cost/delete/{id}")
+    public String deleteCost(@PathVariable("id")int costId){
+        costsService.delete(costId);
+        return "redirect:/finances";
+    }
+
+    @RequestMapping("/income/delete/{id}")
+    public String deleteIncome(@PathVariable("id")int incomeId){
+        incomesService.delete(incomeId);
+        return "redirect:/finances";
+    }
 
     @RequestMapping("/costForm")
     public String createCost(Model model){

@@ -23,8 +23,15 @@ public class IncomesService {
         return incomeChartData;
     }
 
+    public List<Income> findAll(){
+        return incomesRepository.findAll();
+    }
+
+    public void delete(int id){
+        incomesRepository.deleteById(id);
+    }
+
     public void save(Income income){
         incomesRepository.save(income);
     }
-
 }

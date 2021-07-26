@@ -24,6 +24,14 @@ public class CostsService {
         return costChartData;
     }
 
+    public void delete(int id){
+        costsRepository.deleteById(id);
+    }
+
+    public List<Cost> findAll(){
+        return costsRepository.findAll();
+    }
+
     public void save(Cost cost){
         costsRepository.save(cost);
     }
