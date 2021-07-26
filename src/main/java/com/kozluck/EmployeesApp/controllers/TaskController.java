@@ -101,7 +101,7 @@ public class TaskController {
     }
 
     @RequestMapping(value = "saveTask", method = RequestMethod.POST)
-    public String saveTask(@ModelAttribute Task task, Model model) {
+    public String saveTask(@ModelAttribute Task task) {
         tasksService.addTask(task);
         return "redirect:/tasks";
     }
