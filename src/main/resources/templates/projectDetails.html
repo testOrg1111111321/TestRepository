@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>Project Details</title>
+  <link rel="stylesheet" th:href="@{/webjars/bootstrap/5.0.1/css/bootstrap.min.css}">
+  <script th:src="@{webjars/bootstrap/5.0.1/js/bootstrap.min.js}"></script>
+</head>
+<body>
+<nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+  <span class="navbar-brand">Employees App</span>
+  <div class="collapse navbar-collapse" id="navbarText">
+    <ul class="navbar-nav mr-auto">
+      <li class="nav-items">
+        <a class="nav-link" th:href="@{/employees}">Employees List</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" th:href="@{/tasks}">Task List</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" th:href="@{/projects}">Projects List</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" th:href="@{/finances}">Finances</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" th:href="@{/employeeForm}">Add new employee</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" th:href="@{/projectForm}">Add new project</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" th:href="@{/taskForm}">Add new task</a>
+      </li>
+    </ul>
+  </div>
+</nav>
+
+<div class="container">
+  <h1 class="display-1">Project Details</h1>
+  <p class="lead">ID: <span th:text="${project.id}"></span> </p>
+  <p class="lead">Title: <span th:text="${project.title}"></span> </p>
+  <p class="lead">Deadline Date: <span th:text="${project.getConvertedDeadlineDateToLocalDateTime()}"></span> </p>
+
+  <h5 class="display-4">Tasks assigned to this project:</h5>
+  <p class="lead" th:if="${project.tasks==null}" th:text="This project don't have assigned tasks"></p>
+  <div class="row" th:each="task : ${project.tasks}">
+    <h6 class="display-6" th:text="${task.title}"></h6>
+    <p class="lead" th:text="${task.description}"></p>
+    <p class="lead" th:text="${task.deadlineDate}"></p>
+  </div>
+  <a th:href="${'/addTaskToProject/' + project.id}">Assign new task</a>
+</div>
+</body>
+</html>

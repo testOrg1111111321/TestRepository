@@ -21,7 +21,7 @@
         <a class="nav-link active" th:href="@{/projects}">Projects List</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" th:href="@{/employees}">Finances</a>
+        <a class="nav-link" th:href="@{/finances}">Finances</a>
       </li>
       <li class="nav-item">
         <a class="nav-link" th:href="@{/employeeForm}">Add new employee</a>
@@ -43,12 +43,16 @@
       <td>Title</td>
       <td>Deadline Date</td>
       <td></td>
+      <td></td>
+      <td></td>
     </tr>
     </thead>
     <tbody th:each="project : ${projects}">
     <tr>
       <td th:text="${project.title}"></td>
       <td th:text="${project.deadlineDate}"></td>
+      <td><a th:href="${'addTaskToProject/' + project.id}">Assign tasks to this project</a></td>
+      <td><a th:href="${'projectDetails/' + project.id}">Details</a></td>
       <td><a th:href="${'/project/delete/'+project.id}">Delete</a></td>
     </tr>
     </tbody>

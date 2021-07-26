@@ -34,8 +34,8 @@ public class TaskController {
         return "tasks";
     }
 
-    @RequestMapping("chooseTask/{id}")
-    public String chooseTask(@PathVariable("id") int id, Model model) {
+    @RequestMapping("addTasksToEmployee/{employeeId}")
+    public String chooseTask(@PathVariable("employeeId") int id, Model model) {
         Employee employee = employeeService.getEmployeeById(id);
         model.addAttribute("employee", employee);
 
@@ -43,10 +43,10 @@ public class TaskController {
         tasks.removeAll(employee.getTasks());
         model.addAttribute("tasks", tasks);
 
-        return "chooseTask";
+        return "addTasksToEmployee";
     }
 
-    @RequestMapping(value = "/{employeeId}/assign/{taskId}")
+    @RequestMapping(value = "/{employeeId}/assignTaskToEmployee/{taskId}")
     public String assignTask(@PathVariable("taskId") Integer taskId,
                              @PathVariable("employeeId") Integer employeeId) {
         Task task = tasksService.getTaskById(taskId);
