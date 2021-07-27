@@ -45,14 +45,10 @@ public class EmployeeService {
             employee.getTasks().forEach(task -> {
                 LocalDateTime taskTime = task.getConvertedDeadlineDateToLocalDateTime();
                 if (taskTime.isBefore(now)) {
-                    Employee employee1 = getEmployeeById(employee.getId());
-                    Task task1 = tasksService.getTaskById(task.getId());
-
-                    removeTask(employee1,task1);
-                    removeTask(employee1, task1);
+                    removeTask(employee,task);
                     addNotDoneTask(employee);
-                    customEmployeesRepository.updateEmployee(employee);
                     tasksService.update(task);
+                    customEmployeesRepository.updateEmployee(employee);
                     mailService.sendMail(employee.getUser().getId(),"Task not completed.","Hi " + employee.getName() + ".\nYour task was deleted because it was not completed.");
                 }
             });
