@@ -59,7 +59,7 @@ public class TaskController {
         return "redirect:/employees";
     }
 
-    @RequestMapping(value = "/{employeeId}/unassign/{taskId}")
+    @RequestMapping(value = "/{employeeId}/unassignTaskFromEmployee/{taskId}")
     public String unAssignTask(@PathVariable("employeeId")Integer employeeId,
                                @PathVariable("taskId") Integer taskId){
         Task task = tasksService.getTaskById(taskId);

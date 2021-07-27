@@ -59,6 +59,17 @@ public class ProjectController {
 
         return "redirect:/projects";
     }
+    @RequestMapping("/{projectId}/unassignTaskFromProject/{taskId}")
+    public String unassignTaskFromProject(@PathVariable("projectId") Integer projectId,
+                                          @PathVariable("taskId") Integer taskId){
+        Task task = tasksService.getTaskById(taskId);
+        Project project = projectService.findOneById(projectId);
+        project.getTasks().remove(task);
+        task.setProject(null);
+        tasksService.update(task);
+        projectService.save(project);
+        return "redirect:/projects";
+    }
 
     @RequestMapping("/projectDetails/{projectId}")
     public String projectDetails(@PathVariable("projectId") Integer projectId, Model model){
