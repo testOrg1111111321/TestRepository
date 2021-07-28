@@ -26,7 +26,7 @@ public class FinanceController {
 
     @RequestMapping("/finances")
     public String financesMainView(){
-        return "finances";
+        return "finances/finances";
     }
     @RequestMapping("/finances/{year}/{month}")
     public String financesWithYearAndMonth(@PathVariable("year") int year,
@@ -38,21 +38,21 @@ public class FinanceController {
         model.addAttribute("costChartData",costs);
         model.addAttribute("incomeChartData",incomes);
 
-        return "finances";
+        return "finances/finances";
     }
 
     @RequestMapping("/costs")
     public String costsList(Model model){
         List<Cost> costs = costsService.findAll();
         model.addAttribute("costs",costs);
-        return "costs";
+        return "finances/costs";
     }
 
     @RequestMapping("/incomes")
     public String incomesList(Model model){
         List<Income> incomes = incomesService.findAll();
         model.addAttribute("incomes",incomes);
-        return "incomes";
+        return "finances/incomes";
     }
 
     @RequestMapping("/cost/delete/{id}")
@@ -70,13 +70,13 @@ public class FinanceController {
     @RequestMapping("/costForm")
     public String createCost(Model model){
         model.addAttribute("cost",new Cost());
-        return "costForm";
+        return "forms/costForm";
     }
 
     @RequestMapping("/incomeForm")
     public String createIncome(Model model){
         model.addAttribute("income",new Income());
-        return "incomeForm";
+        return "forms/incomeForm";
     }
 
     @PostMapping("/saveCost")

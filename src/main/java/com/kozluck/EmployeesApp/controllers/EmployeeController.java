@@ -1,11 +1,11 @@
 package com.kozluck.EmployeesApp.controllers;
 
 import com.kozluck.EmployeesApp.domain.models.Employee;
-import com.kozluck.EmployeesApp.domain.models.MyUserDetails;
-import com.kozluck.EmployeesApp.domain.models.User;
+import com.kozluck.EmployeesApp.domain.models.user.MyUserDetails;
+import com.kozluck.EmployeesApp.domain.models.user.User;
 import com.kozluck.EmployeesApp.domain.services.EmployeeService;
 import com.kozluck.EmployeesApp.domain.services.TasksService;
-import com.kozluck.EmployeesApp.domain.services.UserService;
+import com.kozluck.EmployeesApp.domain.services.user.UserService;
 import com.kozluck.EmployeesApp.domain.utils.UserAlreadyExistException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
@@ -59,14 +59,14 @@ public class EmployeeController {
         List<Employee> employees = employeeService.getAllEmployees();
         model.addAttribute("employees", employees);
 
-        return "employees";
+        return "employee/employees";
     }
 
     @RequestMapping("/employee/details/{id}")
     public String employeeDetails(@PathVariable int id, Model model) {
         Employee employee = employeeService.getEmployeeById(id);
         model.addAttribute("employee", employee);
-        return "employeeDetails";
+        return "employee/employeeDetails";
     }
 
     @RequestMapping("/employee/delete/{id}")
@@ -79,7 +79,7 @@ public class EmployeeController {
     @RequestMapping("/employeeForm")
     public String createEmployee(Model model) {
         model.addAttribute("employee", new Employee());
-        return "employeeForm";
+        return "forms/employeeForm";
     }
 
     @PostMapping(value = "/saveEmployee")

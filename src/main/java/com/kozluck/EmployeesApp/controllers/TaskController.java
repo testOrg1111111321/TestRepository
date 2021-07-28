@@ -1,9 +1,11 @@
 package com.kozluck.EmployeesApp.controllers;
 
 import com.kozluck.EmployeesApp.domain.models.Employee;
+import com.kozluck.EmployeesApp.domain.models.Project;
 import com.kozluck.EmployeesApp.domain.models.Task;
 import com.kozluck.EmployeesApp.domain.services.EmployeeService;
 import com.kozluck.EmployeesApp.domain.services.MailService;
+import com.kozluck.EmployeesApp.domain.services.ProjectService;
 import com.kozluck.EmployeesApp.domain.services.TasksService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -25,13 +27,16 @@ public class TaskController {
     EmployeeService employeeService;
 
     @Autowired
+    ProjectService projectService;
+
+    @Autowired
     MailService mailService;
 
     @RequestMapping("/tasks")
     public String getTasks(Model model) {
         List<Task> tasks = tasksService.getAllTasks();
         model.addAttribute("tasks", tasks);
-        return "tasks";
+        return "task/tasks";
     }
 
     @RequestMapping("addTasksToEmployee/{employeeId}")
@@ -43,11 +48,11 @@ public class TaskController {
         tasks.removeAll(employee.getTasks());
         model.addAttribute("tasks", tasks);
 
-        return "addTasksToEmployee";
+        return "task/addTasksToEmployee";
     }
 
     @RequestMapping(value = "/{employeeId}/assignTaskToEmployee/{taskId}")
-    public String assignTask(@PathVariable("taskId") Integer taskId,
+    public String assignTaskToEmplyoee(@PathVariable("taskId") Integer taskId,
                              @PathVariable("employeeId") Integer employeeId) {
         Task task = tasksService.getTaskById(taskId);
         Employee employee = employeeService.getEmployeeById(employeeId);
@@ -60,7 +65,7 @@ public class TaskController {
     }
 
     @RequestMapping(value = "/{employeeId}/unassignTaskFromEmployee/{taskId}")
-    public String unAssignTask(@PathVariable("employeeId")Integer employeeId,
+    public String unassignTaskFromEmployee(@PathVariable("employeeId")Integer employeeId,
                                @PathVariable("taskId") Integer taskId){
         Task task = tasksService.getTaskById(taskId);
         Employee employee = employeeService.getEmployeeById(employeeId);
@@ -71,6 +76,29 @@ public class TaskController {
 
         mailService.sendMail(employee.getUser().getId(),"New canceled task.","Hi " + employee.getName() + ".\nOne of yours tasks was cancelled.");
         return "redirect:/employees";
+    }
+    @RequestMapping("/{projectId}/assignTaskToProject/{taskId}")
+    public String assignTaskToProject(@PathVariable("projectId") Integer projectId,
+                                      @PathVariable("taskId") Integer taskId){
+        Task task = tasksService.getTaskById(taskId);
+        Project project = projectService.findOneById(projectId);
+        task.setProject(project);
+        project.getTasks().add(task);
+        tasksService.update(task);
+        projectService.save(project);
+
+        return "redirect:/projects";
+    }
+    @RequestMapping("/{projectId}/unassignTaskFromProject/{taskId}")
+    public String unassignTaskFromProject(@PathVariable("projectId") Integer projectId,
+                                          @PathVariable("taskId") Integer taskId){
+        Task task = tasksService.getTaskById(taskId);
+        Project project = projectService.findOneById(projectId);
+        project.getTasks().remove(task);
+        task.setProject(null);
+        tasksService.update(task);
+        projectService.save(project);
+        return "redirect:/";
     }
     @RequestMapping(value = "/doneTask/{employeeId}/{taskId}")
     public String doneTask(@PathVariable("employeeId")Integer emplyoeeId,
@@ -97,7 +125,7 @@ public class TaskController {
     @RequestMapping("taskForm")
     public String createTask(Model model) {
         model.addAttribute("task", new Task());
-        return "taskForm";
+        return "forms/taskForm";
     }
 
     @RequestMapping(value = "saveTask", method = RequestMethod.POST)

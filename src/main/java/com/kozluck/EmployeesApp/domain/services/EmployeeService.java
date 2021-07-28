@@ -2,9 +2,10 @@ package com.kozluck.EmployeesApp.domain.services;
 
 import com.kozluck.EmployeesApp.domain.models.Employee;
 import com.kozluck.EmployeesApp.domain.models.Task;
-import com.kozluck.EmployeesApp.domain.models.User;
+import com.kozluck.EmployeesApp.domain.models.user.User;
 import com.kozluck.EmployeesApp.domain.repository.CustomEmployeesRepository;
 import com.kozluck.EmployeesApp.domain.repository.EmployeesRepository;
+import com.kozluck.EmployeesApp.domain.services.user.UserService;
 import com.kozluck.EmployeesApp.domain.utils.UserAlreadyExistException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Scheduled;

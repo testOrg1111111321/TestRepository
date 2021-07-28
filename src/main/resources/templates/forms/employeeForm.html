@@ -1,0 +1,41 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <title>Employees</title>
+  <meta http-equiv="Content-Type" content="text/html" charset="UTF-8"/>
+  <link rel="stylesheet" th:href="@{/webjars/bootstrap/5.0.1/css/bootstrap.min.css}">
+  <script th:src="@{webjars/bootstrap/5.0.1/js/bootstrap.min.js}"></script>
+</head>
+<body>
+<div class="container">
+  <h1>Add new Employee to your system!</h1>
+  <form th:action="@{/saveEmployee}" th:object="${employee}" method="post">
+    <div class="form-group">
+      <label for="userNameInput">Username:</label>
+      <input type="text" class="form-control" id="userNameInput" placeholder="Enter username" th:field="*{user.username}" required="required">
+    </div>
+    <div class="form-group">
+      <label for="passwordInput">Password:</label>
+      <input type="password" class="form-control" id="passwordInput" placeholder="Enter password" th:field="*{user.password}" required="required">
+    </div>
+    <div class="form-group">
+      <label for="emailInput">Email:</label>
+      <input type="email" class="form-control" id="emailInput" placeholder="Enter email" th:field="*{user.email}" required="required">
+    </div>
+    <div class="form-group">
+      <label for="nameInput">Name:</label>
+      <input type="text" class="form-control" id="nameInput" placeholder="Enter name" th:field="*{name}" required="required">
+    </div>
+    <div class="form-group">
+      <label for="surnameInput">Surname:</label>
+      <input type="text" class="form-control" id="surnameInput" placeholder="Enter surname" th:field="*{surname}" required="required">
+    </div>
+    <div class="row">
+      <button type="submit" class="btn btn-primary">Submit</button>
+    </div>
+    <p th:text="${message}"></p>
+  </form>
+
+</div>
+</body>
+</html>

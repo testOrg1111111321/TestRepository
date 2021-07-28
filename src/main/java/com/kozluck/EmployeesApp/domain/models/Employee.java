@@ -1,5 +1,7 @@
 package com.kozluck.EmployeesApp.domain.models;
 
+import com.kozluck.EmployeesApp.domain.models.user.User;
+
 import javax.persistence.*;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;

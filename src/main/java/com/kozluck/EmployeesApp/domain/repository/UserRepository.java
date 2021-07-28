@@ -1,6 +1,6 @@
 package com.kozluck.EmployeesApp.domain.repository;
 
-import com.kozluck.EmployeesApp.domain.models.User;
+import com.kozluck.EmployeesApp.domain.models.user.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

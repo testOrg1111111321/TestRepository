@@ -1,0 +1,121 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Finances</title>
+    <meta http-equiv="Content-Type" content="text/html" charset="UTF-8"/>
+    <link rel="stylesheet" th:href="@{/webjars/bootstrap/5.0.1/css/bootstrap.min.css}">
+    <script th:src="@{webjars/bootstrap/5.0.1/js/bootstrap.min.js}"></script>
+</head>
+<body>
+<nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+    <span class="navbar-brand">Employees App</span>
+    <div class="collapse navbar-collapse" id="navbarText">
+        <ul class="navbar-nav mr-auto">
+            <li class="nav-item">
+                <a class="nav-link" th:href="@{/employees}">Employees List</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" th:href="@{/tasks}">Task List</a>
+            </li>
+            <li class="nav-item active">
+                <a class="nav-link active" th:href="@{/employees}">Finances</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" th:href="@{/costs}">Costs</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" th:href="@{/incomes}">Incomes</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" th:href="@{/costForm}">Add new Cost</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" th:href="@{/incomeForm}">Add new Income</a>
+            </li>
+        </ul>
+    </div>
+</nav>
+
+<div class="container">
+    <div class="row">
+        <label for="year">Choose year:</label>
+        <select class="form-selects" id="year" onchange="reloadPage()">
+            <option value="2018">2018</option>
+            <option value="2019">2019</option>s
+            <option value="2020">2020</option>
+            <option value="2021">2021</option>
+        </select>
+        
+        <label for="month">Choose month:</label>
+        <select class="form-select" id="month" onchange="reloadPage()">
+            <option value="January">January</option>
+            <option value="February">February</option>
+            <option value="March">March</option>
+            <option value="April">April</option>
+            <option value="May">May</option>
+            <option value="June">June</option>
+            <option value="July">July</option>
+            <option value="August">August</option>
+            <option value="September">September</option>
+            <option value="October">October</option>
+            <option value="November">November</option>
+            <option value="December">December</option>
+        </select>
+    </div>
+    
+    <div class="row" th:if="${year != null && month != null}">
+        <h2 class="display-2"><span id="yearValue" th:text="${year}"></span>, <span id="monthValue" th:text="${month}"></span></h2>
+    </div>
+
+    <div class="row">
+        <div id="income_chart"></div>
+    </div>
+
+    <div class="row">
+        <div id="cost_chart"></div>
+    </div>
+</div>
+
+<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+<script type="text/javascript"  th:inline="javascript">
+    google.charts.load('current',{'packages':['corechart']});
+    google.charts.setOnLoadCallback(drawIncomeChart);
+    google.charts.setOnLoadCallback(drawCostsChart);
+
+    function drawIncomeChart(){
+        var data = new google.visualization.DataTable();
+        data.addColumn('string','From');
+        data.addColumn('number','Amount');
+        data.addRows([[${incomeChartData}]]);
+
+        var options = {
+            'title':'Incomes',
+            'width':400,
+            'height':400
+        };
+
+        var chart = new google.visualization.PieChart(document.getElementById('income_chart'));
+        chart.draw(data,options);
+    }
+
+    function drawCostsChart(){
+        var data = new google.visualization.DataTable();
+        data.addColumn('string','From');
+        data.addColumn('number','Amount');
+        data.addRows([[${costChartData}]]);
+
+        var options = {
+            'title':'Costs',
+            'width':400,
+            'height':400
+        };
+
+        var chart = new google.visualization.PieChart(document.getElementById('cost_chart'));
+        chart.draw(data,options);
+    }
+</script>
+<script type="text/javascript" th:src="@{/js/financesReloader.js}"></script>
+
+</script>
+</body>
+</html>
