@@ -39,34 +39,30 @@ public class EmployeeController {
 
 
     @RequestMapping("/")
-    public String mainView(Model model) {
+    public ModelAndView mainView() {
         List<? extends GrantedAuthority> userAuth = SecurityContextHolder.getContext().getAuthentication().getAuthorities().stream().collect(Collectors.toList());
 
         if (userAuth.contains(new SimpleGrantedAuthority("ROLE_ADMIN"))) {
-            return "redirect:/employees";
+            return new ModelAndView("redirect:/employees");
         } else {
             Authentication auth = SecurityContextHolder.getContext().getAuthentication();
             MyUserDetails userDetails = (MyUserDetails) auth.getPrincipal();
             User user = userService.findByUsernameIs(userDetails.getUsername());
             Employee employee = employeeService.findByUser(user);
-            model.addAttribute("employee", employee);
-            return "redirect:/employeeView";
+            return new ModelAndView("redirect:/employeeView","employee", employee);
         }
     }
 
     @RequestMapping("/employees")
-    public String getEmployees(Model model) {
+    public ModelAndView getEmployees() {
         List<Employee> employees = employeeService.getAllEmployees();
-        model.addAttribute("employees", employees);
-
-        return "employee/employees";
+        return new ModelAndView("employee/employees","employees", employees);
     }
 
     @RequestMapping("/employee/details/{id}")
-    public String employeeDetails(@PathVariable int id, Model model) {
+    public ModelAndView employeeDetails(@PathVariable int id) {
         Employee employee = employeeService.getEmployeeById(id);
-        model.addAttribute("employee", employee);
-        return "employee/employeeDetails";
+        return new ModelAndView("employee/employeeDetails","employee", employee);
     }
 
     @RequestMapping("/employee/delete/{id}")
@@ -77,22 +73,18 @@ public class EmployeeController {
     }
 
     @RequestMapping("/employeeForm")
-    public String createEmployee(Model model) {
-        model.addAttribute("employee", new Employee());
-        return "forms/employeeForm";
+    public ModelAndView createEmployee() {
+        return new ModelAndView("forms/employeeForm","employee", new Employee());
     }
 
     @PostMapping(value = "/saveEmployee")
     public ModelAndView saveEmployee(@Valid @ModelAttribute("employee") Employee employee,
                                      BindingResult errors) {
-
         if (errors.hasErrors()) {
             errors.getAllErrors().forEach(error -> {
                 System.out.println(error.getObjectName() + "" + error.getDefaultMessage());
             });
-
             return new ModelAndView("employeeForm", "employee", employee);
-
         } else {
             try {
                 userService.saveUser(employee.getUser());
@@ -101,7 +93,6 @@ public class EmployeeController {
             } catch (UserAlreadyExistException userExists) {
                 return new ModelAndView("/employeeForm", "message", "Account with this username/email already exists.");
             }
-
             return new ModelAndView("redirect:/employees", "employees", employeeService.getAllEmployees());
         }
     }

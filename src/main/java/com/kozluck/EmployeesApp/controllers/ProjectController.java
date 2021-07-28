@@ -12,8 +12,11 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.servlet.ModelAndView;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Controller
 public class ProjectController {
@@ -25,33 +28,30 @@ public class ProjectController {
     TasksService tasksService;
 
     @RequestMapping("/projects")
-    public String projects(Model model){
+    public ModelAndView projects(){
         List<Project> projects = projectService.findAll();
-        model.addAttribute("projects", projects);
-        return "project/projects";
+        return new ModelAndView("project/projects","projects", projects);
     }
 
     @RequestMapping("/projectForm")
-    public String createProject(Model model){
-        model.addAttribute("project", new Project());
-        return "forms/projectForm";
+    public ModelAndView createProject(){
+        return new ModelAndView("forms/projectForm","project", new Project());
     }
     @RequestMapping("addTaskToProject/{projectId}")
-    public String chooseTask(@PathVariable("projectId")int id, Model model){
+    public ModelAndView chooseTask(@PathVariable("projectId")int id){
         Project project = projectService.findOneById(id);
-        model.addAttribute("project",project);
-
         List<Task>tasks = tasksService.getAllTasks();
         tasks.removeAll(project.getTasks());
-        model.addAttribute("tasks",tasks);
-        return "task/addTasksToProject";
+        Map<String, Object> models = new HashMap<>();
+        models.put("project",project);
+        models.put("tasks",tasks);
+        return new ModelAndView("task/addTasksToProject",models);
     }
 
     @RequestMapping("/projectDetails/{projectId}")
-    public String projectDetails(@PathVariable("projectId") Integer projectId, Model model){
+    public ModelAndView projectDetails(@PathVariable("projectId") Integer projectId, Model model){
         Project project = projectService.findOneById(projectId);
-        model.addAttribute("project",project);
-        return "project/projectDetails";
+        return new ModelAndView("project/projectDetails","project",project);
     }
 
     @RequestMapping(value = "saveProject", method = RequestMethod.POST)

@@ -11,9 +11,12 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.servlet.ModelAndView;
 
 import javax.validation.Valid;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Controller
 public class FinanceController {
@@ -28,31 +31,30 @@ public class FinanceController {
     public String financesMainView(){
         return "finances/finances";
     }
+
     @RequestMapping("/finances/{year}/{month}")
-    public String financesWithYearAndMonth(@PathVariable("year") int year,
-                                           @PathVariable("month") String month,
-                                           Model model){
+    public ModelAndView financesWithYearAndMonth(@PathVariable("year") int year,
+                                                 @PathVariable("month") String month){
         List<List<Object>> costs = costsService.GetCostsByMonthAndYearToChart(month,year);
         List<List<Object>> incomes = incomesService.getIncomesByMonthAndYearToChart(month,year);
 
-        model.addAttribute("costChartData",costs);
-        model.addAttribute("incomeChartData",incomes);
+        Map<String, Object> models = new HashMap<>();
+        models.put("incomeChartData",incomes);
+        models.put("costChartData",costs);
 
-        return "finances/finances";
+        return new ModelAndView("finances/finances",models);
     }
 
     @RequestMapping("/costs")
-    public String costsList(Model model){
+    public ModelAndView costsList(){
         List<Cost> costs = costsService.findAll();
-        model.addAttribute("costs",costs);
-        return "finances/costs";
+        return new ModelAndView("finances/costs","costs",costs);
     }
 
     @RequestMapping("/incomes")
-    public String incomesList(Model model){
+    public ModelAndView incomesList(){
         List<Income> incomes = incomesService.findAll();
-        model.addAttribute("incomes",incomes);
-        return "finances/incomes";
+        return new ModelAndView("finances/incomes","incomes",incomes);
     }
 
     @RequestMapping("/cost/delete/{id}")
@@ -68,15 +70,13 @@ public class FinanceController {
     }
 
     @RequestMapping("/costForm")
-    public String createCost(Model model){
-        model.addAttribute("cost",new Cost());
-        return "forms/costForm";
+    public ModelAndView createCost(){
+        return new ModelAndView("forms/costForm","cost",new Cost());
     }
 
     @RequestMapping("/incomeForm")
-    public String createIncome(Model model){
-        model.addAttribute("income",new Income());
-        return "forms/incomeForm";
+    public ModelAndView createIncome(){
+        return new ModelAndView("forms/incomeForm","income",new Income());
     }
 
     @PostMapping("/saveCost")
@@ -90,7 +90,4 @@ public class FinanceController {
         incomesService.save(income);
         return "redirect:/finances";
     }
-
-
-
 }

@@ -14,8 +14,11 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.servlet.ModelAndView;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Controller
 public class TaskController {
@@ -33,22 +36,21 @@ public class TaskController {
     MailService mailService;
 
     @RequestMapping("/tasks")
-    public String getTasks(Model model) {
+    public ModelAndView getTasks(){
         List<Task> tasks = tasksService.getAllTasks();
-        model.addAttribute("tasks", tasks);
-        return "task/tasks";
+        return new ModelAndView("task/tasks","tasks", tasks);
     }
 
     @RequestMapping("addTasksToEmployee/{employeeId}")
-    public String chooseTask(@PathVariable("employeeId") int id, Model model) {
+    public ModelAndView chooseTask(@PathVariable("employeeId") int id) {
         Employee employee = employeeService.getEmployeeById(id);
-        model.addAttribute("employee", employee);
-
         List<Task> tasks = tasksService.getAllTasks();
         tasks.removeAll(employee.getTasks());
-        model.addAttribute("tasks", tasks);
 
-        return "task/addTasksToEmployee";
+        Map<String,Object> models = new HashMap<>();
+        models.put("employee", employee);
+        models.put("tasks", tasks);
+        return new ModelAndView( "task/addTasksToEmployee",models);
     }
 
     @RequestMapping(value = "/{employeeId}/assignTaskToEmployee/{taskId}")
@@ -101,18 +103,16 @@ public class TaskController {
         return "redirect:/";
     }
     @RequestMapping(value = "/doneTask/{employeeId}/{taskId}")
-    public String doneTask(@PathVariable("employeeId")Integer emplyoeeId,
-                           @PathVariable("taskId")Integer taskId,
-                           Model model){
+    public ModelAndView doneTask(@PathVariable("employeeId")Integer emplyoeeId,
+                           @PathVariable("taskId")Integer taskId){
         Task task = tasksService.getTaskById(taskId);
         Employee employee = employeeService.getEmployeeById(emplyoeeId);
-
+        
         employeeService.removeTask(employee,task);
         employee.setNumberOfDoneTasks(employee.getNumberOfDoneTasks() + 1);
         employeeService.updateEmployee(employee);
 
-        model.addAttribute("employee",employee);
-        return "redirect:/";
+        return new ModelAndView("redirect:/","employee",employee);
     }
 
     @RequestMapping("task/delete/{id}")
@@ -123,9 +123,8 @@ public class TaskController {
     }
 
     @RequestMapping("taskForm")
-    public String createTask(Model model) {
-        model.addAttribute("task", new Task());
-        return "forms/taskForm";
+    public ModelAndView createTask() {
+        return new ModelAndView("forms/taskForm","task", new Task());
     }
 
     @RequestMapping(value = "saveTask", method = RequestMethod.POST)
