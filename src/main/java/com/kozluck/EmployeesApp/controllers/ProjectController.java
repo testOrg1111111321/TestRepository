@@ -33,11 +33,11 @@ public class ProjectController {
         return new ModelAndView("project/projects","projects", projects);
     }
 
-    @RequestMapping("/projectForm")
+    @RequestMapping("projects/projectForm")
     public ModelAndView createProject(){
         return new ModelAndView("forms/projectForm","project", new Project());
     }
-    @RequestMapping("addTaskToProject/{projectId}")
+    @RequestMapping("projects/addTaskToProject/{projectId}")
     public ModelAndView chooseTask(@PathVariable("projectId")int id){
         Project project = projectService.findOneById(id);
         List<Task>tasks = tasksService.getAllTasks();
@@ -48,18 +48,18 @@ public class ProjectController {
         return new ModelAndView("task/addTasksToProject",models);
     }
 
-    @RequestMapping("/projectDetails/{projectId}")
+    @RequestMapping("projects/projectDetails/{projectId}")
     public ModelAndView projectDetails(@PathVariable("projectId") Integer projectId, Model model){
         Project project = projectService.findOneById(projectId);
         return new ModelAndView("project/projectDetails","project",project);
     }
 
-    @RequestMapping(value = "saveProject", method = RequestMethod.POST)
+    @RequestMapping(value = "projects/saveProject", method = RequestMethod.POST)
     public String saveProject(@ModelAttribute Project project){
         projectService.save(project);
         return "redirect:/projects";
     }
-    @RequestMapping("project/delete/{id}")
+    @RequestMapping("projects/delete/{id}")
     public String deleteProject(@PathVariable int id) {
         Project project = projectService.findOneById(id);
         projectService.delete(project);

@@ -14,7 +14,7 @@
         <li class="nav-items">
           <a class="nav-link" th:href="@{/employees}">Employees List</a>
         </li>
-        <li class="nav-item">
+        <li class="nav-item active">
           <a class="nav-link active" th:href="@{/tasks}">Task List</a>
         </li>
         <li class="nav-item">
@@ -24,13 +24,13 @@
           <a class="nav-link" th:href="@{/finances}">Finances</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" th:href="@{/employeeForm}">Add new employee</a>
+          <a class="nav-link" th:href="@{employees/employeeForm}">Add new employee</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" th:href="@{/projectForm}">Add new project</a>
+          <a class="nav-link" th:href="@{projects/projectForm}">Add new project</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" th:href="@{/taskForm}">Add new task</a>
+          <a class="nav-link" th:href="@{tasks/taskForm}">Add new task</a>
         </li>
       </ul>
     </div>
@@ -48,7 +48,7 @@
       <tr>
         <td th:text="${task.title}"></td>
         <td th:text="${task.numberOfLeftContractors}"></td>
-        <td><a th:href="${'/task/delete/'+task.id}">Delete</a></td>
+        <td><a th:href="${'/tasks/delete/'+task.id}">Delete</a></td>
       </tr>
       </tbody>
     </table>

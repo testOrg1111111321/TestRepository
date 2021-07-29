@@ -49,7 +49,7 @@ public class EmployeeController {
             MyUserDetails userDetails = (MyUserDetails) auth.getPrincipal();
             User user = userService.findByUsernameIs(userDetails.getUsername());
             Employee employee = employeeService.findByUser(user);
-            return new ModelAndView("redirect:/employeeView","employee", employee);
+            return new ModelAndView("employeeView","employee", employee);
         }
     }
 
@@ -59,25 +59,25 @@ public class EmployeeController {
         return new ModelAndView("employee/employees","employees", employees);
     }
 
-    @RequestMapping("/employee/details/{id}")
+    @RequestMapping("/employees/details/{id}")
     public ModelAndView employeeDetails(@PathVariable int id) {
         Employee employee = employeeService.getEmployeeById(id);
         return new ModelAndView("employee/employeeDetails","employee", employee);
     }
 
-    @RequestMapping("/employee/delete/{id}")
+    @RequestMapping("/employees/delete/{id}")
     public String deleteEmloyee(@PathVariable Integer id) {
         Employee employee = employeeService.getEmployeeById(id);
         employeeService.deleteEmployee(employee);
         return "redirect:/employees";
     }
 
-    @RequestMapping("/employeeForm")
+    @RequestMapping("/employees/employeeForm")
     public ModelAndView createEmployee() {
         return new ModelAndView("forms/employeeForm","employee", new Employee());
     }
 
-    @PostMapping(value = "/saveEmployee")
+    @PostMapping(value = "/employees/saveEmployee")
     public ModelAndView saveEmployee(@Valid @ModelAttribute("employee") Employee employee,
                                      BindingResult errors) {
         if (errors.hasErrors()) {

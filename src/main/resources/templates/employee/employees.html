@@ -11,7 +11,7 @@
         <span class="navbar-brand">Employees App</span>
         <div class="collapse navbar-collapse" id="navbarText">
             <ul class="navbar-nav mr-auto">
-                <li class="nav-items">
+                <li class="nav-items active">
                     <a class="nav-link active" th:href="@{/employees}">Employees List</a>
                 </li>
                 <li class="nav-item">
@@ -24,13 +24,13 @@
                     <a class="nav-link" th:href="@{/finances}">Finances</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" th:href="@{/employeeForm}">Add new employee</a>
+                    <a class="nav-link" th:href="@{employees/employeeForm}">Add new employee</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" th:href="@{/projectForm}">Add new project</a>
+                    <a class="nav-link" th:href="@{projects/projectForm}">Add new project</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" th:href="@{/taskForm}">Add new task</a>
+                    <a class="nav-link" th:href="@{tasks/taskForm}">Add new task</a>
                 </li>
             </ul>
         </div>
@@ -56,12 +56,12 @@
                 <td th:text="${employee.surname}"></td>
 
                 <td>
-                    <span th:if="${employee.tasks.size==0}">&#10060;<a th:href="${'addTasksToEmployee/' + employee.id}">Assign task</a></span>
+                    <span th:if="${employee.tasks.size==0}">&#10060;<a th:href="${'employees/addTasksToEmployee/' + employee.id}">Assign task</a></span>
                     <span th:if="${employee.tasks.size>0}">&#9989;</span>
 
                 </td>
-                <td><a th:href="${'/employee/details/' + employee.id}">Details</a></td>
-                <td><a th:href="${'/employee/delete/'+employee.id}">Delete</a></td>
+                <td><a th:href="${'/employees/details/' + employee.id}">Details</a></td>
+                <td><a th:href="${'/employees/delete/'+employee.id}">Delete</a></td>
 
             </tr>
             </tbody>

@@ -9,7 +9,7 @@
 <body>
   <div class="container">
     <h1>Add new income</h1>
-    <form th:action="@{/saveIncome}" th:object="${income}" method="post">
+    <form th:action="@{/finances/saveIncome}" th:object="${income}" method="post">
       <div class="form-group">
         <label for="amountInput">Amount:</label>
         <input type="number" step="0.01" class="form-control" id="amountInput" placeholder="Enter amount of your income" th:field="*{amount}" required="required">

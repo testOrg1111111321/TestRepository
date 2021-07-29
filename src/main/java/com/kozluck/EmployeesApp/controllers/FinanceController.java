@@ -45,47 +45,47 @@ public class FinanceController {
         return new ModelAndView("finances/finances",models);
     }
 
-    @RequestMapping("/costs")
+    @RequestMapping("/finances/costs")
     public ModelAndView costsList(){
         List<Cost> costs = costsService.findAll();
         return new ModelAndView("finances/costs","costs",costs);
     }
 
-    @RequestMapping("/incomes")
+    @RequestMapping("/finances/incomes")
     public ModelAndView incomesList(){
         List<Income> incomes = incomesService.findAll();
         return new ModelAndView("finances/incomes","incomes",incomes);
     }
 
-    @RequestMapping("/cost/delete/{id}")
+    @RequestMapping("/finances/cost/delete/{id}")
     public String deleteCost(@PathVariable("id")int costId){
         costsService.delete(costId);
         return "redirect:/finances";
     }
 
-    @RequestMapping("/income/delete/{id}")
+    @RequestMapping("/finances/income/delete/{id}")
     public String deleteIncome(@PathVariable("id")int incomeId){
         incomesService.delete(incomeId);
         return "redirect:/finances";
     }
 
-    @RequestMapping("/costForm")
+    @RequestMapping("/finances/costForm")
     public ModelAndView createCost(){
         return new ModelAndView("forms/costForm","cost",new Cost());
     }
 
-    @RequestMapping("/incomeForm")
+    @RequestMapping("/finances/incomeForm")
     public ModelAndView createIncome(){
         return new ModelAndView("forms/incomeForm","income",new Income());
     }
 
-    @PostMapping("/saveCost")
+    @PostMapping("/finances/saveCost")
     public String saveCost(@Valid @ModelAttribute Cost cost){
         costsService.save(cost);
         return "redirect:/finances";
     }
 
-    @PostMapping("/saveIncome")
+    @PostMapping("/finances/saveIncome")
     public String saveIncome(@Valid @ModelAttribute Income income){
         incomesService.save(income);
         return "redirect:/finances";

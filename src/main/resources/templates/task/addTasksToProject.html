@@ -51,7 +51,7 @@
       <tr>
         <td th:text="${task.title}"></td>
         <td th:text="${task.numberOfLeftContractors}"></td>
-        <td><a th:href="@{'/'+${project.id}+'/assignTaskToProject/' + ${task.id}}">Choose</a></td>
+        <td><a th:href="@{'/projects/'+${project.id}+'/assignTaskToProject/' + ${task.id}}">Choose</a></td>
       </tr>
     </tbody>
   </table>

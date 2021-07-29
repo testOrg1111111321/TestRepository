@@ -9,7 +9,7 @@
 <div class="container">
   <h1>Add new Task to your system!</h1>
   <p th:if="${dateError!=null}" th:text="${dateError}"></p>
-  <form th:action="@{/saveTask}" th:object="${task}" method="post">
+  <form th:action="@{/tasks/saveTask}" th:object="${task}" method="post">
     <div class="form-group">
       <label for="titleInput">Title:</label>
       <input type="text" class="form-control" id="titleInput" placeholder="Enter title" th:field="*{title}">

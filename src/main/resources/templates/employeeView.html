@@ -16,7 +16,7 @@
             <h6 class="display-6" th:text="${task.title}"></h6>
             <p class="lead" th:text="${task.description}"></p>
             <p class="lead" th:text="${'Deadline:' + task.deadlineDate}"></p>
-            <a th:href="${'/doneTask/' + employee.id + '/' + task.id}">Done</a>
+            <a th:href="${'/employee/doneTask/' + employee.id + '/' + task.id}">Done</a>
         </div>
     </div>
 </body>

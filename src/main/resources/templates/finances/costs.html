@@ -7,28 +7,34 @@
   <script th:src="@{webjars/bootstrap/5.0.1/js/bootstrap.min.js}"></script>
 </head>
 <body>
-<nav class="navbar navbar-expand-lg navbar-dark bg-primary">
-  <span class="navbar-brand">Employees App</span>
-  <div class="collapse navbar-collapse" id="navbarText">
-    <ul class="navbar-nav mr-auto">
-      <li class="nav-item active">
-        <a class="nav-link active" th:href="@{/employees}">Employees List</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" th:href="@{/tasks}">Task List</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" th:href="@{/finances}">Finances</a>
-      </li>
-      <li class="nav-item active">
-        <a class="nav-link" th:href="@{/costs}">Costs</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" th:href="@{/incomes}">Incomes</a>
-      </li>
-    </ul>
-  </div>
-</nav>
+  <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+    <span class="navbar-brand">Employees App</span>
+    <div class="collapse navbar-collapse" id="navbarText">
+      <ul class="navbar-nav mr-auto">
+        <li class="nav-item">
+          <a class="nav-link" th:href="@{/employees}">Employees List</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" th:href="@{/tasks}">Task List</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" th:href="@{/employees}">Finances</a>
+        </li>
+        <li class="nav-item active">
+          <a class="nav-link active" th:href="@{/finances/costs}">Costs</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" th:href="@{/finances/incomes}">Incomes</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" th:href="@{/finances/costForm}">Add new Cost</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" th:href="@{/finances/incomeForm}">Add new Income</a>
+        </li>
+      </ul>
+    </div>
+  </nav>
 
 <div class="container">
   <table class="table">
@@ -51,7 +57,7 @@
       <td th:text="${cost.month}"></td>
       <td th:text="${cost.year}"></td>
 
-      <td><a th:href="${'/cost/delete/'+cost.id}">Delete</a></td>
+      <td><a th:href="${'/finances/cost/delete/'+cost.id}">Delete</a></td>
 
     </tr>
     </tbody>
