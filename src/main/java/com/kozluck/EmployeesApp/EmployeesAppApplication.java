@@ -13,6 +13,7 @@ public class EmployeesAppApplication {
     @Transactional
     public static void main(String[] args) {
         SpringApplication.run(EmployeesAppApplication.class, args);
+        string accessToken = "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";
     }
 
 }
